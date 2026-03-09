@@ -95,7 +95,7 @@ function WinnerCard({
             </span>
           </div>
           <span
-            className="text-[10px] uppercase tracking-widest text-white/25"
+            className="text-[10px] uppercase tracking-widest text-white/40"
             style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
           >
             {config.periodLabel}
@@ -153,7 +153,7 @@ function WinnerCard({
                 {product.category}
               </span>
               {product.communityVotes && (
-                <span className="text-[10px] text-white/25 tracking-wider">
+                <span className="text-[10px] text-white/40 tracking-wider">
                   {product.communityVotes} votes
                 </span>
               )}
@@ -172,7 +172,7 @@ function WinnerCard({
               {product.aiScore}
             </div>
             <div
-              className="text-[9px] uppercase tracking-[2px] text-white/25 mt-0.5"
+              className="text-[9px] uppercase tracking-[2px] text-white/40 mt-0.5"
               style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
             >
               AI Score
@@ -192,13 +192,13 @@ function WinnerCard({
             <div className="flex items-center gap-1.5 mb-2">
               <span className="text-[10px]">🤖</span>
               <span
-                className="text-[9px] uppercase tracking-[2px] text-white/30"
+                className="text-[9px] uppercase tracking-[2px] text-white/40"
                 style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
               >
                 AI Verdict
               </span>
             </div>
-            <p className="text-xs text-white/40 leading-relaxed italic">
+            <p className="text-xs text-white/50 leading-relaxed italic">
               &ldquo;{product.aiVerdict}&rdquo;
             </p>
           </div>
@@ -207,7 +207,7 @@ function WinnerCard({
         {/* View details hint */}
         <div className="flex items-center justify-end mt-4">
           <span
-            className="text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white/40 transition-colors duration-200"
+            className="text-[10px] uppercase tracking-widest text-white/35 group-hover:text-white/50 transition-colors duration-200"
             style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
           >
             View Launch &rarr;
@@ -317,7 +317,7 @@ export function WinnersContent() {
                   Monthly Champion
                 </h3>
                 <p
-                  className="text-[10px] uppercase tracking-widest text-white/25"
+                  className="text-[10px] uppercase tracking-widest text-white/40"
                   style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                 >
                   The most prestigious title. Only 12 per year.
@@ -353,7 +353,7 @@ export function WinnersContent() {
                   Weekly Champion
                 </h3>
                 <p
-                  className="text-[10px] uppercase tracking-widest text-white/25"
+                  className="text-[10px] uppercase tracking-widest text-white/40"
                   style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                 >
                   The best daily winner from the past 7 days.
@@ -389,7 +389,7 @@ export function WinnersContent() {
                   Daily Champion
                 </h3>
                 <p
-                  className="text-[10px] uppercase tracking-widest text-white/25"
+                  className="text-[10px] uppercase tracking-widest text-white/40"
                   style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                 >
                   Today&apos;s highest-scoring launch.
@@ -431,7 +431,7 @@ export function WinnersContent() {
               Check back to see the full timeline of winners as the archive expands.
             </p>
             <p
-              className="text-[10px] uppercase tracking-[3px] text-white/20 mt-4"
+              className="text-[10px] uppercase tracking-[3px] text-white/40 mt-4"
               style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
             >
               New winners crowned daily at midnight UTC

@@ -53,7 +53,7 @@ export function WinnerBanner({ product }: { product: Product }) {
                 >
                   {product.aiScore}
                 </div>
-                <div className="text-[10px] uppercase tracking-widest text-white/30 mt-0.5">AI Score</div>
+                <div className="text-[10px] uppercase tracking-widest text-white/40 mt-0.5">AI Score</div>
               </div>
             </div>
 
@@ -99,7 +99,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 mt-4">
                 {Object.entries(product.aiBreakdown).map(([key, value]) => (
                   <div key={key} className="flex items-center gap-1.5">
-                    <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/30">
+                    <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/40">
                       {key}
                     </span>
                     <span

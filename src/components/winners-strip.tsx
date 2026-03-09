@@ -47,7 +47,7 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
         >
           {product.name}
         </div>
-        <div className="text-[10px] text-white/30 truncate">{product.tagline}</div>
+        <div className="text-[10px] text-white/40 truncate">{product.tagline}</div>
       </div>
       <div
         className={`text-lg font-black shrink-0 ml-auto ${glowClass}`}

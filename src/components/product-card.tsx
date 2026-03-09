@@ -28,7 +28,7 @@ function ScoreBar({ value, label, delay = 0 }: { value: number; label: string; d
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] uppercase tracking-wider text-white/30 w-20 shrink-0">
+      <span className="text-[10px] uppercase tracking-wider text-white/40 w-20 shrink-0">
         {label}
       </span>
       <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
@@ -165,7 +165,7 @@ export function ProductCard({
                 >
                   {product.aiScore}
                 </div>
-                <div className="text-[8px] uppercase tracking-widest text-white/25">
+                <div className="text-[8px] uppercase tracking-widest text-white/40">
                   AI
                 </div>
               </div>
@@ -201,7 +201,7 @@ export function ProductCard({
           {/* Tags */}
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             <span className="tag-pill">{product.category}</span>
-            <span className="text-[10px] text-white/20">
+            <span className="text-[10px] text-white/40">
               by @{product.submittedBy}
             </span>
             {(product.commentCount ?? 0) > 0 && (

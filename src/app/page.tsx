@@ -180,7 +180,7 @@ export default function Home() {
                 Launch Rankings
               </h2>
             </div>
-            <p className="text-xs text-white/30">{todayFormatted}</p>
+            <p className="text-xs text-white/40">{todayFormatted}</p>
           </div>
 
           <div className="flex items-center gap-4">

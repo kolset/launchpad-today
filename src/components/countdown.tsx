@@ -32,7 +32,7 @@ export function Countdown() {
 
   return (
     <div className="flex items-center gap-2" aria-hidden="true" title={`Next ranking in ${pad(time.hours)}:${pad(time.minutes)}:${pad(time.seconds)}`} style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.4s ease-in" }}>
-      <span className="text-[10px] uppercase tracking-widest text-white/25">
+      <span className="text-[10px] uppercase tracking-widest text-white/40">
         Next ranking in
       </span>
       <div className="flex items-center gap-1">

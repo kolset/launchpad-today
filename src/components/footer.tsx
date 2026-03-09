@@ -103,7 +103,7 @@ export function Footer() {
           {/* Navigation column */}
           <div className="sm:col-span-3">
             <h4
-              className="text-[10px] uppercase tracking-[3px] text-white/20 mb-4"
+              className="text-[10px] uppercase tracking-[3px] text-white/40 mb-4"
               style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               Navigate
@@ -112,14 +112,14 @@ export function Footer() {
               <FooterLink href="/">Today&apos;s Rankings</FooterLink>
               <FooterLink href="/winners">Winners</FooterLink>
               <FooterLink href="/about">About</FooterLink>
-              <FooterLink href="/submit">Submit a Launch</FooterLink>
+              <FooterLink href="/">Submit a Launch</FooterLink>
             </div>
           </div>
 
           {/* Resources column */}
           <div className="sm:col-span-4">
             <h4
-              className="text-[10px] uppercase tracking-[3px] text-white/20 mb-4"
+              className="text-[10px] uppercase tracking-[3px] text-white/40 mb-4"
               style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               Resources
@@ -138,12 +138,12 @@ export function Footer() {
           style={{ borderTop: "1px solid rgba(255, 255, 255, 0.04)" }}
         >
           <p
-            className="text-[10px] uppercase tracking-[3px] text-white/25"
+            className="text-[10px] uppercase tracking-[3px] text-white/40"
             style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
           >
             Mission Control &copy; {new Date().getFullYear()}
           </p>
-          <p className="text-[10px] text-white/20">
+          <p className="text-[10px] text-white/40">
             Built with AI. Ranked by AI. No humans were bribed.
           </p>
         </div>

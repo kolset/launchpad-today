@@ -87,7 +87,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
             <kbd
-              className="hidden sm:inline-flex items-center text-[10px] text-white/25 px-1.5 py-0.5 rounded"
+              className="hidden sm:inline-flex items-center text-[10px] text-white/40 px-1.5 py-0.5 rounded"
               style={{
                 fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                 border: "1px solid rgba(255, 255, 255, 0.1)",

@@ -257,7 +257,7 @@ export function AboutContent() {
                     >
                       {criterion.name}
                     </h4>
-                    <span className="text-[10px] uppercase tracking-widest text-white/30">
+                    <span className="text-[10px] uppercase tracking-widest text-white/40">
                       {criterion.range} points
                     </span>
                   </div>

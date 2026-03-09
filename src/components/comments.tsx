@@ -180,7 +180,7 @@ export function CommentsSection({
           >
             <div className="text-2xl mb-3">💬</div>
             <p
-              className="text-xs uppercase tracking-[2px] text-white/25"
+              className="text-xs uppercase tracking-[2px] text-white/40"
               style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               No comments yet

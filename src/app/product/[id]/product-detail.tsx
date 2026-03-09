@@ -243,7 +243,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 {/* Meta: category + submitter */}
                 <div className="flex items-center justify-center sm:justify-start gap-3 mt-3">
                   <span className="tag-pill">{product.category}</span>
-                  <span className="text-[10px] sm:text-xs text-white/25">
+                  <span className="text-[10px] sm:text-xs text-white/40">
                     by @{product.submittedBy}
                   </span>
                 </div>
@@ -283,7 +283,7 @@ export function ProductDetail({ product }: { product: Product }) {
                   </div>
                   <div
                     className="text-[10px] uppercase tracking-widest mt-3"
-                    style={{ color: "rgba(255,255,255,0.2)" }}
+                    style={{ color: "rgba(255,255,255,0.4)" }}
                   >
                     out of 100
                   </div>
@@ -319,10 +319,10 @@ export function ProductDetail({ product }: { product: Product }) {
                 {/* Average indicator */}
                 <div className="mt-5 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] uppercase tracking-wider text-white/25">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">
                       Category Average
                     </span>
-                    <span className="text-xs text-white/25" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
+                    <span className="text-xs text-white/40" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
                       ~75
                     </span>
                   </div>
@@ -377,7 +377,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-center sm:text-left">
-                  <p className="text-xs text-white/25 uppercase tracking-wider" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
+                  <p className="text-xs text-white/40 uppercase tracking-wider" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
                     Share this launch
                   </p>
                 </div>
@@ -408,7 +408,7 @@ export function ProductDetail({ product }: { product: Product }) {
         <div className="mt-8 text-center">
           <a
             href="/"
-            className="inline-flex items-center gap-2 text-xs text-white/25 hover:text-white/50 transition-colors"
+            className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white/60 transition-colors"
             style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace", minHeight: "44px" }}
           >
             launchpad.today
@@ -577,7 +577,7 @@ function EmbedBadgeSection({ product }: { product: Product }) {
   return (
     <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
       <p
-        className="text-xs text-white/25 uppercase tracking-wider mb-4"
+        className="text-xs text-white/40 uppercase tracking-wider mb-4"
         style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
       >
         Embed Badge
@@ -615,7 +615,7 @@ function EmbedBadgeSection({ product }: { product: Product }) {
       {/* HTML snippet */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] uppercase tracking-wider text-white/30" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+          <span className="text-[10px] uppercase tracking-wider text-white/40" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
             HTML
           </span>
           <CopySnippetButton text={htmlSnippet} label="Copy Code" />
@@ -639,7 +639,7 @@ function EmbedBadgeSection({ product }: { product: Product }) {
       {/* Markdown snippet */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] uppercase tracking-wider text-white/30" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+          <span className="text-[10px] uppercase tracking-wider text-white/40" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
             Markdown
           </span>
           <CopySnippetButton text={markdownSnippet} label="Copy Code" />
