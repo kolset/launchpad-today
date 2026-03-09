@@ -313,6 +313,15 @@ body {
   color: var(--neon-cyan);
 }
 
+/* Hide scrollbar for horizontal category filter */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
