@@ -4,8 +4,28 @@ import { Product } from "@/lib/types";
 import { SmallRocket } from "./rocket-icon";
 import { UpvoteButton } from "./upvote-button";
 import { useState } from "react";
+import Link from "next/link";
 
-function ScoreBar({ value, label }: { value: number; label: string }) {
+function ScoreBar({ value, label, delay = 0 }: { value: number; label: string; delay?: number }) {
+  const color =
+    value >= 90
+      ? "var(--neon-green)"
+      : value >= 80
+        ? "var(--neon-cyan)"
+        : value >= 70
+          ? "var(--neon-yellow)"
+          : "var(--neon-orange)";
+
+  const glow =
+    value >= 90
+      ? `0 0 8px var(--neon-green)`
+      : value >= 80
+        ? `0 0 8px var(--neon-cyan)`
+        : "none";
+
+  const glowClass =
+    value >= 90 ? "neon-glow-green-sm" : value >= 80 ? "neon-glow-cyan-sm" : "";
+
   return (
     <div className="flex items-center gap-2">
       <span className="text-[10px] uppercase tracking-wider text-white/30 w-20 shrink-0">
@@ -13,38 +33,20 @@ function ScoreBar({ value, label }: { value: number; label: string }) {
       </span>
       <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
         <div
-          className="h-full rounded-full transition-all duration-700"
+          className="h-full rounded-full animate-bar-fill"
           style={{
             width: `${value}%`,
-            background:
-              value >= 90
-                ? "var(--neon-green)"
-                : value >= 80
-                  ? "var(--neon-cyan)"
-                  : value >= 70
-                    ? "var(--neon-yellow)"
-                    : "var(--neon-orange)",
-            boxShadow:
-              value >= 90
-                ? "0 0 8px var(--neon-green)"
-                : value >= 80
-                  ? "0 0 8px var(--neon-cyan)"
-                  : "none",
+            background: color,
+            boxShadow: glow,
+            animationDelay: `${delay}ms`,
           }}
         />
       </div>
       <span
-        className={`text-xs font-bold w-8 text-right ${value >= 90 ? "neon-glow-green-sm" : value >= 80 ? "neon-glow-cyan-sm" : ""}`}
+        className={`text-xs font-bold w-8 text-right ${glowClass}`}
         style={{
           fontFamily: "'Orbitron', sans-serif",
-          color:
-            value >= 90
-              ? "var(--neon-green)"
-              : value >= 80
-                ? "var(--neon-cyan)"
-                : value >= 70
-                  ? "var(--neon-yellow)"
-                  : "var(--neon-orange)",
+          color,
         }}
       >
         {value}
@@ -56,9 +58,11 @@ function ScoreBar({ value, label }: { value: number; label: string }) {
 export function ProductCard({
   product,
   rank,
+  index = 0,
 }: {
   product: Product;
   rank: number;
+  index?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -67,8 +71,8 @@ export function ProductCard({
 
   return (
     <div
-      className={`retro-card rounded-xl p-4 sm:p-5 cursor-pointer ${accentClass}`}
-      onClick={() => setExpanded(!expanded)}
+      className={`retro-card rounded-xl p-4 sm:p-5 card-stagger ${accentClass}`}
+      style={{ animationDelay: `${index * 60}ms` }}
     >
       <div className="flex items-start gap-3 sm:gap-4">
         {/* Rank */}
@@ -101,7 +105,12 @@ export function ProductCard({
                 className="text-sm sm:text-base font-bold tracking-wide truncate"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
-                {product.name}
+                <Link
+                  href={`/product/${product.id}`}
+                  className="hover:underline decoration-white/30 underline-offset-2 transition-colors hover:text-[var(--neon-cyan)]"
+                >
+                  {product.name}
+                </Link>
               </h3>
               <p className="text-xs sm:text-sm text-white/50 mt-0.5 line-clamp-1">
                 {product.tagline}
@@ -154,17 +163,31 @@ export function ProductCard({
                 </div>
               </div>
 
-              {/* Expand chevron */}
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="text-white/20 transition-transform duration-200 shrink-0 hidden sm:block"
-                style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
+              {/* Expand button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setExpanded(!expanded);
+                }}
+                className="shrink-0 flex items-center gap-1 rounded-md px-2 py-1 cursor-pointer transition-colors hover:bg-white/[0.08]"
+                style={{ minHeight: "44px" }}
+                aria-label={expanded ? "Collapse AI score" : "Expand AI score"}
               >
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+                <span className="text-[10px] uppercase tracking-wider text-white/30">
+                  {expanded ? "Close" : "AI Score"}
+                </span>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="text-white/30 transition-transform duration-200"
+                  style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
+                >
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -174,11 +197,6 @@ export function ProductCard({
             <span className="text-[10px] text-white/20">
               by @{product.submittedBy}
             </span>
-            {!expanded && (
-              <span className="text-[10px] text-white/15 ml-auto hidden sm:inline">
-                Tap for AI analysis
-              </span>
-            )}
           </div>
         </div>
       </div>
@@ -192,10 +210,10 @@ export function ProductCard({
 
           {/* Score bars with full labels */}
           <div className="space-y-2 mb-4">
-            <ScoreBar value={product.aiBreakdown.innovation} label="Innovation" />
-            <ScoreBar value={product.aiBreakdown.execution} label="Execution" />
-            <ScoreBar value={product.aiBreakdown.potential} label="Potential" />
-            <ScoreBar value={product.aiBreakdown.timing} label="Timing" />
+            <ScoreBar value={product.aiBreakdown.innovation} label="Innovation" delay={0} />
+            <ScoreBar value={product.aiBreakdown.execution} label="Execution" delay={80} />
+            <ScoreBar value={product.aiBreakdown.potential} label="Potential" delay={160} />
+            <ScoreBar value={product.aiBreakdown.timing} label="Timing" delay={240} />
           </div>
 
           {/* AI Verdict */}
@@ -217,21 +235,19 @@ export function ProductCard({
 
           {/* Links */}
           <div className="flex items-center gap-4 mt-3">
-            <a
+            <Link
               href={`/product/${product.id}`}
               className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
               style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
-              onClick={(e) => e.stopPropagation()}
             >
               Full Details &rarr;
-            </a>
+            </Link>
             <a
               href={product.url}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
               style={{ color: "var(--neon-cyan)", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
-              onClick={(e) => e.stopPropagation()}
             >
               Visit Site &rarr;
             </a>

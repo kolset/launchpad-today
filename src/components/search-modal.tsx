@@ -186,7 +186,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
       onClick={onClose}
     >
       <div
-        className="retro-card rounded-2xl w-full max-w-xl overflow-hidden neon-border-cyan"
+        className="retro-card rounded-2xl w-full max-w-xl overflow-hidden neon-border-cyan modal-card-enter"
         onClick={(e) => e.stopPropagation()}
         style={{
           boxShadow:

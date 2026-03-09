@@ -68,7 +68,7 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" onClick={onClose}>
       <div
-        className="retro-card rounded-2xl p-6 sm:p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto neon-border-cyan"
+        className="retro-card rounded-2xl p-6 sm:p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto neon-border-cyan modal-card-enter"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

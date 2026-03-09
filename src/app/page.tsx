@@ -196,31 +196,56 @@ export default function Home() {
               key={product.id}
               product={product}
               rank={timeFilter === "today" ? index + 2 : index + 1}
+              index={index}
             />
           ))}
         </div>
 
         {/* Empty state */}
         {rankedProducts.length === 0 && (
-          <div className="text-center py-16">
-            <p className="text-white/25 text-sm">
+          <div
+            className="retro-card rounded-2xl text-center py-14 px-6"
+            style={{
+              borderColor: "rgba(0, 240, 255, 0.1)",
+              background: "rgba(10, 10, 25, 0.6)",
+            }}
+          >
+            <div
+              className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl mx-auto mb-5"
+              style={{
+                border: "1px solid rgba(0, 240, 255, 0.15)",
+                boxShadow: "0 0 20px rgba(0, 240, 255, 0.08)",
+                background: "rgba(0, 240, 255, 0.04)",
+              }}
+            >
+              {categoryFilter !== "All" ? "🔍" : "🚀"}
+            </div>
+            <p
+              className="text-sm font-bold mb-1.5"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
               {categoryFilter !== "All"
-                ? `No launches in ${categoryFilter} yet.`
-                : "No launches yet today."}
+                ? "No launches found"
+                : "The launchpad is clear"}
+            </p>
+            <p className="text-xs text-white/30 mb-6 max-w-xs mx-auto">
+              {categoryFilter !== "All"
+                ? `No startups in ${categoryFilter} have launched yet. Check another category or submit yours.`
+                : "No startups have launched today yet. Be the first to ignite the board."}
             </p>
             {categoryFilter !== "All" ? (
               <button
                 onClick={() => setCategoryFilter("All")}
-                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white mt-4"
+                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white"
               >
-                Show all categories
+                Show All Categories
               </button>
             ) : (
               <button
                 onClick={() => setShowSubmit(true)}
-                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white mt-4"
+                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white"
               >
-                Be the first to launch
+                Be the First to Launch
               </button>
             )}
           </div>
