@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Product } from "@/lib/types";
 import { MOCK_PRODUCTS, PAST_WINNERS, MOCK_COMMENTS } from "@/lib/mock-data";
+import { getProducts, getComments as fetchComments } from "@/lib/api";
 import { RocketIcon } from "@/components/rocket-icon";
 import { CommentsSection } from "@/components/comments";
 import { StarsBackground } from "@/components/stars-background";
 import Link from "next/link";
+import type { Comment } from "@/lib/types";
 
 function ScoreBar({ value, label }: { value: number; label: string }) {
   const color =
@@ -95,16 +97,16 @@ function WinnerBadge({ type }: { type: "day" | "week" | "month" }) {
   );
 }
 
-const ALL_PRODUCTS = [...MOCK_PRODUCTS, ...PAST_WINNERS];
+const STATIC_ALL_PRODUCTS = [...MOCK_PRODUCTS, ...PAST_WINNERS];
 
-function getRelatedProducts(product: Product, count: number = 3): Product[] {
+function getRelatedProducts(product: Product, allProducts: Product[], count: number = 3): Product[] {
   // First, try same category (excluding current product)
-  const sameCategory = ALL_PRODUCTS.filter(
+  const sameCategory = allProducts.filter(
     (p) => p.category === product.category && p.id !== product.id
   );
 
   // Then, get others sorted by score (excluding current product and same category)
-  const others = ALL_PRODUCTS.filter(
+  const others = allProducts.filter(
     (p) => p.category !== product.category && p.id !== product.id
   ).sort((a, b) => b.aiScore - a.aiScore);
 
@@ -113,6 +115,21 @@ function getRelatedProducts(product: Product, count: number = 3): Product[] {
 }
 
 export function ProductDetail({ product }: { product: Product }) {
+  const [allProducts, setAllProducts] = useState<Product[]>(STATIC_ALL_PRODUCTS);
+  const [initialComments, setInitialComments] = useState<Comment[]>(MOCK_COMMENTS[product.id] || []);
+
+  // Hydrate from API on mount
+  useEffect(() => {
+    let cancelled = false;
+    getProducts().then((products) => {
+      if (!cancelled && products.length > 0) setAllProducts(products);
+    });
+    fetchComments(product.id).then((comments) => {
+      if (!cancelled && comments.length > 0) setInitialComments(comments);
+    });
+    return () => { cancelled = true; };
+  }, [product.id]);
+
   const scoreColor =
     product.aiScore >= 90
       ? "var(--neon-green)"
@@ -395,13 +412,13 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
 
         {/* More Launches section */}
-        <MoreLaunches currentProduct={product} />
+        <MoreLaunches currentProduct={product} allProducts={allProducts} />
 
         {/* Discussion / Comments */}
         <CommentsSection
           productId={product.id}
           submittedBy={product.submittedBy}
-          initialComments={MOCK_COMMENTS[product.id] || []}
+          initialComments={initialComments}
         />
 
         {/* Footer link */}
@@ -419,8 +436,8 @@ export function ProductDetail({ product }: { product: Product }) {
   );
 }
 
-function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
-  const related = getRelatedProducts(currentProduct, 3);
+function MoreLaunches({ currentProduct, allProducts }: { currentProduct: Product; allProducts: Product[] }) {
+  const related = getRelatedProducts(currentProduct, allProducts, 3);
 
   if (related.length === 0) return null;
 

@@ -1,13 +1,15 @@
 import { Metadata } from "next";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
+import { getProduct, getProducts } from "@/lib/api";
 import { Product } from "@/lib/types";
 import { ProductSchema } from "@/components/structured-data";
 import { ProductDetail } from "./product-detail";
 
-const ALL_PRODUCTS = [...MOCK_PRODUCTS, ...PAST_WINNERS];
+// Quick local lookup for generateMetadata (server-side, no async needed for static)
+const ALL_PRODUCTS_STATIC = [...MOCK_PRODUCTS, ...PAST_WINNERS];
 
-function findProduct(id: string): Product | undefined {
-  return ALL_PRODUCTS.find((p) => p.id === id);
+function findProductStatic(id: string): Product | undefined {
+  return ALL_PRODUCTS_STATIC.find((p) => p.id === id);
 }
 
 type Props = {
@@ -16,7 +18,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const product = findProduct(id);
+  // Try API first (hits Supabase if configured), fall back to static
+  const product = (await getProduct(id)) ?? findProductStatic(id);
 
   if (!product) {
     return {
@@ -57,14 +60,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return ALL_PRODUCTS.map((product) => ({
+  const products = await getProducts();
+  return products.map((product) => ({
     id: product.id,
   }));
 }
 
 export default async function ProductPage({ params }: Props) {
   const { id } = await params;
-  const product = findProduct(id);
+  // Try API first (hits Supabase if configured), fall back to static
+  const product = (await getProduct(id)) ?? findProductStatic(id);
 
   if (!product) {
     return <NotFound />;

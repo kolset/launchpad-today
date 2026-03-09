@@ -13,6 +13,7 @@ import { Countdown } from "@/components/countdown";
 import { Footer } from "@/components/footer";
 import { SmallRocket } from "@/components/rocket-icon";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
+import { getProducts, submitProduct, subscribeEmail } from "@/lib/api";
 import { TimeFilter, Category, Product } from "@/lib/types";
 
 const SubmitModal = lazy(() => import("@/components/submit-modal").then(m => ({ default: m.SubmitModal })));
@@ -26,6 +27,7 @@ export default function Home() {
   const [showSubmit, setShowSubmit] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
+  const [pastWinners, setPastWinners] = useState<Product[]>(PAST_WINNERS);
   const [email, setEmail] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const { showToast } = useToast();
@@ -42,8 +44,22 @@ export default function Home() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Hydrate products from API (Supabase if configured, otherwise mock data)
+  useEffect(() => {
+    let cancelled = false;
+    getProducts().then((allProducts) => {
+      if (cancelled) return;
+      // Separate today's products from past winners
+      const today = allProducts.filter((p) => !p.isWinner || p.isWinner === "day");
+      const past = allProducts.filter((p) => p.isWinner === "week" || p.isWinner === "month");
+      if (today.length > 0) setProducts(today);
+      if (past.length > 0) setPastWinners(past);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
   // All products including past winners for non-today filters
-  const allProducts = useMemo(() => [...products, ...PAST_WINNERS], [products]);
+  const allProducts = useMemo(() => [...products, ...pastWinners], [products, pastWinners]);
 
   // Current day's winner (highest AI score from today's products)
   const dayWinner = useMemo(
@@ -52,8 +68,8 @@ export default function Home() {
   );
 
   // Week and month winners from past data
-  const weekWinner = PAST_WINNERS.find((p) => p.isWinner === "week") || dayWinner;
-  const monthWinner = PAST_WINNERS.find((p) => p.isWinner === "month") || dayWinner;
+  const weekWinner = pastWinners.find((p) => p.isWinner === "week") || dayWinner;
+  const monthWinner = pastWinners.find((p) => p.isWinner === "month") || dayWinner;
 
   // Compute which categories have products in the current time filter pool
   const activeCategories = useMemo(() => {
@@ -99,41 +115,71 @@ export default function Home() {
     url: string;
     category: Category;
     submittedBy: string;
-  }) => {
-    const newId = String(Date.now());
+  }): { id: string; name: string; aiScore: number; aiVerdict: string } => {
+    const logoEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    const aiScore = Math.floor(Math.random() * 25) + 65;
+    const aiVerdict =
+      "AI analysis pending. Full breakdown will be available shortly after our models complete their review.";
+    const aiBreakdown = {
+      innovation: Math.floor(Math.random() * 20) + 70,
+      execution: Math.floor(Math.random() * 20) + 70,
+      potential: Math.floor(Math.random() * 20) + 70,
+      timing: Math.floor(Math.random() * 20) + 70,
+    };
+
+    // Optimistic local update
+    const tempId = String(Date.now());
     const newProduct: Product = {
-      id: newId,
+      id: tempId,
       ...data,
       submittedAt: new Date().toISOString(),
-      logoEmoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-      aiScore: Math.floor(Math.random() * 25) + 65,
-      aiVerdict:
-        "AI analysis pending. Full breakdown will be available shortly after our models complete their review.",
-      aiBreakdown: {
-        innovation: Math.floor(Math.random() * 20) + 70,
-        execution: Math.floor(Math.random() * 20) + 70,
-        potential: Math.floor(Math.random() * 20) + 70,
-        timing: Math.floor(Math.random() * 20) + 70,
-      },
+      logoEmoji,
+      aiScore,
+      aiVerdict,
+      aiBreakdown,
       communityVotes: 0,
     };
     setProducts((prev) => [...prev, newProduct]);
     showToast({
       message: `${data.name} has been submitted! AI analysis is underway.`,
       type: "success",
-      action: { label: "View your launch", href: `/product/${newId}` },
+      action: { label: "View your launch", href: `/product/${tempId}` },
     });
+
+    // Persist to Supabase (fire-and-forget, mock mode returns a mock product)
+    submitProduct({
+      name: data.name,
+      tagline: data.tagline,
+      description: data.description,
+      url: data.url,
+      category: data.category as Category,
+      submittedBy: data.submittedBy,
+      logoEmoji,
+      aiScore,
+      aiVerdict,
+      aiBreakdown,
+    }).then((saved) => {
+      if (saved && saved.id !== tempId) {
+        // Replace temp product with the one from Supabase (has real ID)
+        setProducts((prev) => prev.map((p) => (p.id === tempId ? saved : p)));
+      }
+    });
+
+    return { id: tempId, name: data.name, aiScore, aiVerdict };
   };
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       setEmailSubmitted(true);
+      const submittedEmail = email;
       setEmail("");
       showToast({
         message: "You're on the launchpad! Daily winners in your inbox.",
         type: "success",
       });
+      // Persist to Supabase (fire-and-forget)
+      subscribeEmail(submittedEmail);
     }
   };
 
@@ -401,7 +447,7 @@ export default function Home() {
           >
             {[
               { value: String(products.length), label: "Launches Today", color: "var(--neon-cyan)", glow: "neon-glow-cyan-sm" },
-              { value: String(products.length + PAST_WINNERS.length), label: "All-Time Launches", color: "var(--neon-pink)", glow: "neon-glow-pink-sm" },
+              { value: String(products.length + pastWinners.length), label: "All-Time Launches", color: "var(--neon-pink)", glow: "neon-glow-pink-sm" },
               { value: String(highestScore), label: "Highest Score", color: "var(--neon-yellow)", glow: "neon-glow-yellow-sm" },
               { value: "1", label: "Days Running", color: "var(--neon-green)", glow: "neon-glow-green-sm" },
             ].map((stat) => (

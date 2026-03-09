@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Comment } from "@/lib/types";
+import { getComments as fetchComments, addComment } from "@/lib/api";
 
 const COMMENTS_STORAGE_KEY = "launchpad-comments";
 const HANDLE_STORAGE_KEY = "launchpad-user-handle";
@@ -72,30 +73,52 @@ export function CommentsSection({
   const [text, setText] = useState("");
   const [hasStoredHandle, setHasStoredHandle] = useState(false);
 
-  // Load stored comments and handle on mount
+  // Load stored comments and handle on mount, then hydrate from API
   useEffect(() => {
+    // Step 1: Merge initialComments + localStorage for instant render
     const stored = getStoredComments();
-    if (stored[productId] && stored[productId].length > 0) {
-      // Merge initial + stored, dedupe by id
-      const merged = [...initialComments];
-      const existingIds = new Set(merged.map((c) => c.id));
-      for (const c of stored[productId]) {
-        if (!existingIds.has(c.id)) {
-          merged.push(c);
-        }
+    const localComments = stored[productId] || [];
+    const merged = [...initialComments];
+    const existingIds = new Set(merged.map((c) => c.id));
+    for (const c of localComments) {
+      if (!existingIds.has(c.id)) {
+        merged.push(c);
       }
-      merged.sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-      setComments(merged);
     }
+    merged.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    if (merged.length > 0) setComments(merged);
+
+    // Step 2: Fetch from API (authoritative if Supabase is configured)
+    let cancelled = false;
+    fetchComments(productId).then((apiComments) => {
+      if (cancelled) return;
+      if (apiComments.length > 0) {
+        // Merge API comments with localStorage comments (localStorage may have unsaved ones)
+        const allComments = [...apiComments];
+        const apiIds = new Set(apiComments.map((c) => c.id));
+        for (const c of localComments) {
+          if (!apiIds.has(c.id)) {
+            allComments.push(c);
+          }
+        }
+        allComments.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        setComments(allComments);
+      }
+    });
 
     const storedHandle = getStoredHandle();
     if (storedHandle) {
       setHandle(storedHandle);
       setHasStoredHandle(true);
     }
+
+    return () => { cancelled = true; };
   }, [productId, initialComments]);
 
   const handleSubmit = useCallback(
@@ -105,16 +128,19 @@ export function CommentsSection({
       const trimmedHandle = handle.trim().replace(/^@/, "");
       if (!trimmedText || !trimmedHandle) return;
 
+      const isMaker = trimmedHandle.toLowerCase() === submittedBy.toLowerCase();
+      const tempId = `user-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
       const newComment: Comment = {
-        id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        id: tempId,
         productId,
         author: trimmedHandle,
         text: trimmedText,
         createdAt: new Date().toISOString(),
-        isMaker:
-          trimmedHandle.toLowerCase() === submittedBy.toLowerCase(),
+        isMaker,
       };
 
+      // Optimistic local update
       const updatedComments = [...comments, newComment];
       setComments(updatedComments);
 
@@ -123,6 +149,29 @@ export function CommentsSection({
       const existingStored = stored[productId] || [];
       stored[productId] = [...existingStored, newComment];
       saveComments(stored);
+
+      // Persist to Supabase (fire-and-forget, updates local state if real ID differs)
+      addComment({
+        productId,
+        author: trimmedHandle,
+        text: trimmedText,
+        isMaker,
+      }).then((saved) => {
+        if (saved && saved.id !== tempId) {
+          // Replace temp comment with the one from Supabase (has real ID)
+          setComments((prev) =>
+            prev.map((c) => (c.id === tempId ? saved : c))
+          );
+          // Update localStorage with the real ID too
+          const s = getStoredComments();
+          if (s[productId]) {
+            s[productId] = s[productId].map((c) =>
+              c.id === tempId ? saved : c
+            );
+            saveComments(s);
+          }
+        }
+      });
 
       // Save handle for next time
       saveHandle(trimmedHandle);

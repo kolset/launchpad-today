@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
+import { getProducts } from "@/lib/api";
 import { Product } from "@/lib/types";
 
-const ALL_PRODUCTS: Product[] = [...MOCK_PRODUCTS, ...PAST_WINNERS];
+const STATIC_ALL_PRODUCTS: Product[] = [...MOCK_PRODUCTS, ...PAST_WINNERS];
 const MAX_RESULTS = 8;
 const MAX_RECENT = 5;
 const RECENT_KEY = "launchpad-recent-searches";
@@ -52,10 +53,22 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [allProducts, setAllProducts] = useState<Product[]>(STATIC_ALL_PRODUCTS);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const router = useRouter();
+
+  // Hydrate products from API on first open
+  const hasFetchedRef = useRef(false);
+  useEffect(() => {
+    if (isOpen && !hasFetchedRef.current) {
+      hasFetchedRef.current = true;
+      getProducts().then((products) => {
+        if (products.length > 0) setAllProducts(products);
+      });
+    }
+  }, [isOpen]);
 
   // Save trigger element and restore focus on close
   useEffect(() => {
@@ -71,13 +84,13 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const results = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
-    return ALL_PRODUCTS.filter(
+    return allProducts.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.tagline.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q)
     ).slice(0, MAX_RESULTS);
-  }, [query]);
+  }, [query, allProducts]);
 
   // Load recent searches when modal opens
   useEffect(() => {

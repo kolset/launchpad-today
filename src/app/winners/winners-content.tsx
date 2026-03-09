@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { StarsBackground } from "@/components/stars-background";
 import { RocketIcon } from "@/components/rocket-icon";
 import { Footer } from "@/components/footer";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
+import { getProducts } from "@/lib/api";
 import { Product } from "@/lib/types";
 
 const WINNER_CONFIG = {
@@ -219,8 +221,18 @@ function WinnerCard({
 }
 
 export function WinnersContent() {
-  // Find winners from all data sources
-  const allProducts = [...MOCK_PRODUCTS, ...PAST_WINNERS];
+  // Start with static mock data for instant render
+  const [allProducts, setAllProducts] = useState<Product[]>([...MOCK_PRODUCTS, ...PAST_WINNERS]);
+
+  // Hydrate from API on mount
+  useEffect(() => {
+    let cancelled = false;
+    getProducts().then((products) => {
+      if (!cancelled && products.length > 0) setAllProducts(products);
+    });
+    return () => { cancelled = true; };
+  }, []);
+
   const monthWinner = allProducts.find((p) => p.isWinner === "month");
   const weekWinner = allProducts.find((p) => p.isWinner === "week");
   const dayWinner = allProducts.find((p) => p.isWinner === "day");

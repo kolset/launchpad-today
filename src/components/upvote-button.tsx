@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { voteForProduct } from "@/lib/api";
 
 const STORAGE_KEY = "launchpad-upvotes";
 
@@ -20,6 +21,26 @@ function saveVotedIds(ids: Set<string>) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
   } catch {
     // ignore storage errors
+  }
+}
+
+function getFingerprint(): string {
+  try {
+    const raw = [
+      navigator.userAgent,
+      screen.width,
+      screen.height,
+      screen.colorDepth,
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    ].join("|");
+    // Simple hash (djb2)
+    let hash = 5381;
+    for (let i = 0; i < raw.length; i++) {
+      hash = ((hash << 5) + hash + raw.charCodeAt(i)) | 0;
+    }
+    return "fp_" + Math.abs(hash).toString(36);
+  } catch {
+    return "fp_" + Date.now().toString(36);
   }
 }
 
@@ -51,15 +72,21 @@ export function UpvoteButton({
       setTimeout(() => setAnimating(false), 300);
 
       if (ids.has(productId)) {
+        // Un-vote (localStorage only, Supabase votes are permanent)
         ids.delete(productId);
         saveVotedIds(ids);
         setVoted(false);
         setCount(baseVotes);
       } else {
+        // Optimistic local update
         ids.add(productId);
         saveVotedIds(ids);
         setVoted(true);
         setCount(baseVotes + 1);
+
+        // Persist to Supabase (fire-and-forget)
+        const fp = getFingerprint();
+        voteForProduct(productId, fp);
       }
     },
     [productId, baseVotes]
