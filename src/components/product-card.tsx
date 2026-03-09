@@ -199,11 +199,34 @@ export function ProductCard({
           </div>
 
           {/* Tags */}
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
             <span className="tag-pill">{product.category}</span>
             <span className="text-[10px] text-white/20">
               by @{product.submittedBy}
             </span>
+            {(product.commentCount ?? 0) > 0 && (
+              <Link
+                href={`/product/${product.id}`}
+                className="flex items-center gap-1 text-[10px] text-white/25 hover:text-white/50 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                {product.commentCount}
+              </Link>
+            )}
+            {(product.communityVotes ?? 0) > 50 && (
+              <span
+                className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold"
+                style={{ color: "var(--neon-orange)" }}
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z" />
+                </svg>
+                Trending
+              </span>
+            )}
           </div>
         </div>
       </div>

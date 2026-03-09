@@ -17,7 +17,17 @@ export interface Product {
     timing: number;
   };
   communityVotes?: number;
+  commentCount?: number;
   isWinner?: "day" | "week" | "month";
+}
+
+export interface Comment {
+  id: string;
+  productId: string;
+  author: string;
+  text: string;
+  createdAt: string;
+  isMaker: boolean;
 }
 
 export type TimeFilter = "today" | "week" | "month" | "all-time";

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { WebsiteSchema } from "@/components/structured-data";
+import { ToastProvider } from "@/components/toast";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,7 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="scanlines">
         <WebsiteSchema />
-        {children}
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );

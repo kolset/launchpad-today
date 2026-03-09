@@ -1,4 +1,4 @@
-import { Product } from "./types";
+import { Product, Comment } from "./types";
 
 export const MOCK_PRODUCTS: Product[] = [
   {
@@ -17,6 +17,7 @@ export const MOCK_PRODUCTS: Product[] = [
       "Exceptional execution on a real pain point. Browser-based ML training is the next frontier. Strong technical moat and clear path to enterprise adoption.",
     aiBreakdown: { innovation: 96, execution: 93, potential: 95, timing: 92 },
     communityVotes: 87,
+    commentCount: 3,
     isWinner: "day",
   },
   {
@@ -35,6 +36,7 @@ export const MOCK_PRODUCTS: Product[] = [
       "Strong developer experience play. The zero-config approach differentiates from competitors. Market is crowded but the execution here is crisp.",
     aiBreakdown: { innovation: 88, execution: 95, potential: 90, timing: 91 },
     communityVotes: 62,
+    commentCount: 1,
   },
   {
     id: "3",
@@ -209,3 +211,42 @@ export const PAST_WINNERS: Product[] = [
     isWinner: "month",
   },
 ];
+
+export const MOCK_COMMENTS: Record<string, Comment[]> = {
+  "1": [
+    {
+      id: "c1",
+      productId: "1",
+      author: "sarah_builds",
+      text: "Maker here! Happy to answer questions about how browser-based training works under the hood.",
+      createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+      isMaker: true,
+    },
+    {
+      id: "c2",
+      productId: "1",
+      author: "ml_curious",
+      text: "How does this handle larger datasets? My training sets are usually 50GB+.",
+      createdAt: new Date(Date.now() - 3600000).toISOString(),
+      isMaker: false,
+    },
+    {
+      id: "c3",
+      productId: "1",
+      author: "sarah_builds",
+      text: "Great question. Anything over 10GB streams from cloud storage. The browser handles preprocessing and the actual training offloads to our GPU cluster.",
+      createdAt: new Date(Date.now() - 1800000).toISOString(),
+      isMaker: true,
+    },
+  ],
+  "2": [
+    {
+      id: "c4",
+      productId: "2",
+      author: "devops_dan",
+      text: "Built this after getting frustrated with deploy configs at my last three startups. AMA!",
+      createdAt: new Date(Date.now() - 7200000).toISOString(),
+      isMaker: true,
+    },
+  ],
+};

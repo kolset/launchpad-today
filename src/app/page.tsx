@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { useToast } from "@/components/toast";
 import { StarsBackground } from "@/components/stars-background";
 import { Header } from "@/components/header";
 import { WinnerBanner } from "@/components/winner-banner";
@@ -26,6 +27,7 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
   const [email, setEmail] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const { showToast } = useToast();
 
   // Global Cmd/Ctrl+K shortcut
   useEffect(() => {
@@ -97,8 +99,9 @@ export default function Home() {
     category: Category;
     submittedBy: string;
   }) => {
+    const newId = String(Date.now());
     const newProduct: Product = {
-      id: String(Date.now()),
+      id: newId,
       ...data,
       submittedAt: new Date().toISOString(),
       logoEmoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
@@ -114,6 +117,11 @@ export default function Home() {
       communityVotes: 0,
     };
     setProducts((prev) => [...prev, newProduct]);
+    showToast({
+      message: `${data.name} has been submitted! AI analysis is underway.`,
+      type: "success",
+      action: { label: "View your launch", href: `/product/${newId}` },
+    });
   };
 
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -121,6 +129,10 @@ export default function Home() {
     if (email) {
       setEmailSubmitted(true);
       setEmail("");
+      showToast({
+        message: "You're on the launchpad! Daily winners in your inbox.",
+        type: "success",
+      });
     }
   };
 

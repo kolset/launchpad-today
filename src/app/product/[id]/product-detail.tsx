@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Product } from "@/lib/types";
-import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
+import { MOCK_PRODUCTS, PAST_WINNERS, MOCK_COMMENTS } from "@/lib/mock-data";
 import { RocketIcon } from "@/components/rocket-icon";
+import { CommentsSection } from "@/components/comments";
 import { StarsBackground } from "@/components/stars-background";
 import Link from "next/link";
 
@@ -392,6 +393,13 @@ export function ProductDetail({ product }: { product: Product }) {
 
         {/* More Launches section */}
         <MoreLaunches currentProduct={product} />
+
+        {/* Discussion / Comments */}
+        <CommentsSection
+          productId={product.id}
+          submittedBy={product.submittedBy}
+          initialComments={MOCK_COMMENTS[product.id] || []}
+        />
 
         {/* Footer link */}
         <div className="mt-8 text-center">
