@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { WebsiteSchema } from "@/components/structured-data";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://launchpad.today"),
   title: "Launchpad.today — AI-Ranked Startup Launches",
   description:
     "The daily startup launch ranking. AI judges every submission and crowns the Product of the Day, Week, and Month. Submit your startup and get ranked.",
@@ -26,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="scanlines">{children}</body>
+      <body className="scanlines">
+        <WebsiteSchema />
+        {children}
+      </body>
     </html>
   );
 }

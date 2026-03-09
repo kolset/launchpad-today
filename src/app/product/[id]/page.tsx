@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
 import { Product } from "@/lib/types";
+import { ProductSchema } from "@/components/structured-data";
 import { ProductDetail } from "./product-detail";
 
 const ALL_PRODUCTS = [...MOCK_PRODUCTS, ...PAST_WINNERS];
@@ -27,6 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${product.name} — AI Score ${product.aiScore} | Launchpad.today`;
   const description = `${product.tagline}. ${product.aiVerdict}`;
 
+  const ogImageUrl = `https://launchpad.today/product/${product.id}/opengraph-image`;
+
   return {
     title,
     description,
@@ -35,11 +38,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: "website",
       url: `https://launchpad.today/product/${product.id}`,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${product.name} — AI Score ${product.aiScore}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${product.name} scored ${product.aiScore} on Launchpad.today`,
       description: product.tagline,
+      images: [ogImageUrl],
     },
   };
 }
@@ -58,7 +70,12 @@ export default async function ProductPage({ params }: Props) {
     return <NotFound />;
   }
 
-  return <ProductDetail product={product} />;
+  return (
+    <>
+      <ProductSchema product={product} />
+      <ProductDetail product={product} />
+    </>
+  );
 }
 
 function NotFound() {
