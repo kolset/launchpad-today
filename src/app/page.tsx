@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { StarsBackground } from "@/components/stars-background";
 import { Header } from "@/components/header";
 import { WinnerBanner } from "@/components/winner-banner";
 import { WinnersStrip } from "@/components/winners-strip";
 import { ProductCard } from "@/components/product-card";
 import { SubmitModal } from "@/components/submit-modal";
+import { SearchModal } from "@/components/search-modal";
 import { TimeFilterBar } from "@/components/time-filter";
+import { CategoryFilter } from "@/components/category-filter";
 import { Countdown } from "@/components/countdown";
 import { Footer } from "@/components/footer";
 import { SmallRocket } from "@/components/rocket-icon";
@@ -18,10 +20,24 @@ const EMOJIS = ["🚀", "💡", "⚡", "🔮", "🎯", "🧪", "🛸", "🌟", "
 
 export default function Home() {
   const [timeFilter, setTimeFilter] = useState<TimeFilter>("today");
+  const [categoryFilter, setCategoryFilter] = useState<Category | "All">("All");
   const [showSubmit, setShowSubmit] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
   const [email, setEmail] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+
+  // Global Cmd/Ctrl+K shortcut
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setShowSearch((prev) => !prev);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // All products including past winners for non-today filters
   const allProducts = useMemo(() => [...products, ...PAST_WINNERS], [products]);
@@ -36,7 +52,14 @@ export default function Home() {
   const weekWinner = PAST_WINNERS.find((p) => p.isWinner === "week") || dayWinner;
   const monthWinner = PAST_WINNERS.find((p) => p.isWinner === "month") || dayWinner;
 
-  // Filter and rank products based on time filter
+  // Compute which categories have products in the current time filter pool
+  const activeCategories = useMemo(() => {
+    const pool = timeFilter === "today" ? products : allProducts;
+    const cats = new Set(pool.map((p) => p.category));
+    return [...cats].sort() as Category[];
+  }, [products, allProducts, timeFilter]);
+
+  // Filter and rank products based on time filter + category
   const rankedProducts = useMemo(() => {
     let filtered: Product[];
     switch (timeFilter) {
@@ -55,10 +78,16 @@ export default function Home() {
       default:
         filtered = products;
     }
+
+    // Apply category filter
+    if (categoryFilter !== "All") {
+      filtered = filtered.filter((p) => p.category === categoryFilter);
+    }
+
     return [...filtered]
       .sort((a, b) => b.aiScore - a.aiScore)
       .filter((p) => timeFilter === "today" ? p.id !== dayWinner.id : true);
-  }, [products, allProducts, timeFilter, dayWinner]);
+  }, [products, allProducts, timeFilter, categoryFilter, dayWinner]);
 
   const handleSubmit = (data: {
     name: string;
@@ -82,6 +111,7 @@ export default function Home() {
         potential: Math.floor(Math.random() * 20) + 70,
         timing: Math.floor(Math.random() * 20) + 70,
       },
+      communityVotes: 0,
     };
     setProducts((prev) => [...prev, newProduct]);
   };
@@ -109,7 +139,7 @@ export default function Home() {
     <div className="min-h-screen grid-bg horizon-gradient relative">
       <StarsBackground />
 
-      <Header onSubmitClick={() => setShowSubmit(true)} />
+      <Header onSubmitClick={() => setShowSubmit(true)} onSearchClick={() => setShowSearch(true)} />
 
       {/* Winner Banner */}
       <WinnerBanner product={dayWinner} />
@@ -146,8 +176,17 @@ export default function Home() {
         </div>
 
         {/* Filter bar */}
-        <div className="mb-6">
+        <div className="mb-4">
           <TimeFilterBar active={timeFilter} onChange={setTimeFilter} />
+        </div>
+
+        {/* Category filter pills */}
+        <div className="mb-6">
+          <CategoryFilter
+            categories={activeCategories}
+            active={categoryFilter}
+            onChange={setCategoryFilter}
+          />
         </div>
 
         {/* Product list */}
@@ -164,13 +203,26 @@ export default function Home() {
         {/* Empty state */}
         {rankedProducts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-white/25 text-sm">No launches yet today.</p>
-            <button
-              onClick={() => setShowSubmit(true)}
-              className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white mt-4"
-            >
-              Be the first to launch
-            </button>
+            <p className="text-white/25 text-sm">
+              {categoryFilter !== "All"
+                ? `No launches in ${categoryFilter} yet.`
+                : "No launches yet today."}
+            </p>
+            {categoryFilter !== "All" ? (
+              <button
+                onClick={() => setCategoryFilter("All")}
+                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white mt-4"
+              >
+                Show all categories
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowSubmit(true)}
+                className="submit-btn px-6 py-2.5 rounded-lg text-xs text-white mt-4"
+              >
+                Be the first to launch
+              </button>
+            )}
           </div>
         )}
 
@@ -332,6 +384,12 @@ export default function Home() {
         isOpen={showSubmit}
         onClose={() => setShowSubmit(false)}
         onSubmit={handleSubmit}
+      />
+
+      {/* Search Modal */}
+      <SearchModal
+        isOpen={showSearch}
+        onClose={() => setShowSearch(false)}
       />
     </div>
   );

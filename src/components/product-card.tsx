@@ -2,6 +2,7 @@
 
 import { Product } from "@/lib/types";
 import { SmallRocket } from "./rocket-icon";
+import { UpvoteButton } from "./upvote-button";
 import { useState } from "react";
 
 function ScoreBar({ value, label }: { value: number; label: string }) {
@@ -107,8 +108,15 @@ export function ProductCard({
               </p>
             </div>
 
-            {/* AI Score with glow */}
+            {/* Upvote + AI Score + Chevron */}
             <div className="flex items-center gap-2">
+              {/* Upvote button */}
+              <UpvoteButton
+                productId={product.id}
+                baseVotes={product.communityVotes ?? 0}
+              />
+
+              {/* AI Score with glow */}
               <div
                 className="shrink-0 rounded-lg px-3 py-1.5 text-center"
                 style={{

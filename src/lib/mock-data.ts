@@ -16,6 +16,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Exceptional execution on a real pain point. Browser-based ML training is the next frontier. Strong technical moat and clear path to enterprise adoption.",
     aiBreakdown: { innovation: 96, execution: 93, potential: 95, timing: 92 },
+    communityVotes: 87,
     isWinner: "day",
   },
   {
@@ -33,6 +34,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Strong developer experience play. The zero-config approach differentiates from competitors. Market is crowded but the execution here is crisp.",
     aiBreakdown: { innovation: 88, execution: 95, potential: 90, timing: 91 },
+    communityVotes: 62,
   },
   {
     id: "3",
@@ -49,6 +51,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Addresses a universal startup problem with elegant automation. Regulatory complexity is a moat. Revenue model is clear and scalable.",
     aiBreakdown: { innovation: 87, execution: 90, potential: 92, timing: 87 },
+    communityVotes: 45,
   },
   {
     id: "4",
@@ -65,6 +68,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Clever twist on voice-to-text. The structured extraction angle is underexplored. Integration story needs work but core idea is solid.",
     aiBreakdown: { innovation: 90, execution: 83, potential: 87, timing: 84 },
+    communityVotes: 38,
   },
   {
     id: "5",
@@ -81,6 +85,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Timely play on ESG requirements. Enterprise demand is real but sales cycles will be long. Technical approach is sound.",
     aiBreakdown: { innovation: 85, execution: 82, potential: 88, timing: 81 },
+    communityVotes: 29,
   },
   {
     id: "6",
@@ -97,6 +102,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Education angle is a smart differentiation in a crowded AI coding space. Retention could be strong. Needs to nail the explanation quality.",
     aiBreakdown: { innovation: 80, execution: 84, potential: 83, timing: 81 },
+    communityVotes: 53,
   },
   {
     id: "7",
@@ -113,6 +119,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Solid execution on computer vision fitness. The form-correction angle is compelling. Crowded market but the tech moat is real if accuracy holds.",
     aiBreakdown: { innovation: 82, execution: 78, potential: 80, timing: 76 },
+    communityVotes: 18,
   },
   {
     id: "8",
@@ -129,6 +136,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Low-fee marketplace is attractive but chicken-and-egg problem is real. Digital asset focus helps with margins. Needs a strong launch strategy.",
     aiBreakdown: { innovation: 74, execution: 78, potential: 79, timing: 73 },
+    communityVotes: 11,
   },
   {
     id: "9",
@@ -145,6 +153,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Universal messaging aggregation is a perennial idea. Execution looks clean. The AI summarization is the real value prop but integration maintenance is a grind.",
     aiBreakdown: { innovation: 70, execution: 76, potential: 75, timing: 71 },
+    communityVotes: 22,
   },
   {
     id: "10",
@@ -161,6 +170,7 @@ export const MOCK_PRODUCTS: Product[] = [
     aiVerdict:
       "Privacy-first smart home has a passionate niche. Local processing is a real differentiator. Adoption will be slow but community could drive it.",
     aiBreakdown: { innovation: 78, execution: 68, potential: 72, timing: 66 },
+    communityVotes: 8,
   },
 ];
 
@@ -179,6 +189,7 @@ export const PAST_WINNERS: Product[] = [
     aiScore: 97,
     aiVerdict: "Best-in-class migration tooling. This changes how teams approach framework decisions.",
     aiBreakdown: { innovation: 98, execution: 96, potential: 97, timing: 97 },
+    communityVotes: 114,
     isWinner: "week",
   },
   {
@@ -194,6 +205,7 @@ export const PAST_WINNERS: Product[] = [
     aiScore: 95,
     aiVerdict: "Essential infrastructure for the AI era. Simple idea, perfect timing.",
     aiBreakdown: { innovation: 94, execution: 96, potential: 95, timing: 95 },
+    communityVotes: 97,
     isWinner: "month",
   },
 ];

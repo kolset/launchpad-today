@@ -16,6 +16,7 @@ export interface Product {
     potential: number;
     timing: number;
   };
+  communityVotes?: number;
   isWinner?: "day" | "week" | "month";
 }
 

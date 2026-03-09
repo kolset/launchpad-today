@@ -1,8 +1,10 @@
 "use client";
 
 import { Product } from "@/lib/types";
+import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
 import { RocketIcon } from "@/components/rocket-icon";
 import { StarsBackground } from "@/components/stars-background";
+import Link from "next/link";
 
 function ScoreBar({ value, label }: { value: number; label: string }) {
   const color =
@@ -91,6 +93,23 @@ function WinnerBadge({ type }: { type: "day" | "week" | "month" }) {
   );
 }
 
+const ALL_PRODUCTS = [...MOCK_PRODUCTS, ...PAST_WINNERS];
+
+function getRelatedProducts(product: Product, count: number = 3): Product[] {
+  // First, try same category (excluding current product)
+  const sameCategory = ALL_PRODUCTS.filter(
+    (p) => p.category === product.category && p.id !== product.id
+  );
+
+  // Then, get others sorted by score (excluding current product and same category)
+  const others = ALL_PRODUCTS.filter(
+    (p) => p.category !== product.category && p.id !== product.id
+  ).sort((a, b) => b.aiScore - a.aiScore);
+
+  const combined = [...sameCategory, ...others];
+  return combined.slice(0, count);
+}
+
 export function ProductDetail({ product }: { product: Product }) {
   const scoreColor =
     product.aiScore >= 90
@@ -167,19 +186,20 @@ export function ProductDetail({ product }: { product: Product }) {
 
         {/* Main card */}
         <div
-          className={isWinner ? "winner-card rounded-2xl sm:rounded-3xl overflow-hidden" : "retro-card rounded-2xl sm:rounded-3xl overflow-hidden"}
+          className={isWinner ? "winner-card rounded-2xl sm:rounded-3xl relative" : "retro-card rounded-2xl sm:rounded-3xl relative"}
         >
           {/* Top glow gradient */}
           <div
-            className="absolute inset-x-0 top-0 h-40 pointer-events-none"
+            className="absolute inset-x-0 top-0 h-40 pointer-events-none rounded-t-2xl sm:rounded-t-3xl"
             style={{
               background: isWinner
                 ? "radial-gradient(ellipse at center top, rgba(255, 45, 120, 0.15) 0%, transparent 70%)"
                 : "radial-gradient(ellipse at center top, rgba(0, 240, 255, 0.08) 0%, transparent 70%)",
+              overflow: "hidden",
             }}
           />
 
-          <div className="relative p-5 sm:p-8 md:p-10">
+          <div className="relative p-5 sm:p-8 md:p-10 min-w-0" style={{ overflowWrap: "break-word" }}>
             {/* Header: emoji + name + tagline */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-8">
               {/* Large emoji */}
@@ -201,10 +221,10 @@ export function ProductDetail({ product }: { product: Product }) {
               </div>
 
               <div className="text-center sm:text-left flex-1 min-w-0">
-                <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                <div className="flex items-center justify-center sm:justify-start gap-3 mb-2 flex-wrap">
                   <h1
                     className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    style={{ fontFamily: "'Orbitron', sans-serif", overflowWrap: "break-word", wordBreak: "break-word" }}
                   >
                     {product.name}
                   </h1>
@@ -212,7 +232,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 </div>
                 <p
                   className="text-sm sm:text-base md:text-lg"
-                  style={{ color: "var(--neon-cyan)" }}
+                  style={{ color: "var(--neon-cyan)", overflowWrap: "break-word", wordBreak: "break-word" }}
                 >
                   {product.tagline}
                 </p>
@@ -315,7 +335,10 @@ export function ProductDetail({ product }: { product: Product }) {
               >
                 About
               </h3>
-              <p className="text-sm sm:text-base text-white/60 leading-relaxed">
+              <p
+                className="text-sm sm:text-base text-white/60 leading-relaxed"
+                style={{ overflowWrap: "break-word", wordBreak: "break-word" }}
+              >
                 {product.description}
               </p>
             </div>
@@ -338,7 +361,10 @@ export function ProductDetail({ product }: { product: Product }) {
                   AI Verdict
                 </h3>
               </div>
-              <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+              <p
+                className="text-sm sm:text-base text-white/70 leading-relaxed"
+                style={{ overflowWrap: "break-word", wordBreak: "break-word" }}
+              >
                 {product.aiVerdict}
               </p>
             </div>
@@ -361,6 +387,9 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
 
+        {/* More Launches section */}
+        <MoreLaunches currentProduct={product} />
+
         {/* Footer link */}
         <div className="mt-8 text-center">
           <a
@@ -371,6 +400,108 @@ export function ProductDetail({ product }: { product: Product }) {
             launchpad.today
           </a>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
+  const related = getRelatedProducts(currentProduct, 3);
+
+  if (related.length === 0) return null;
+
+  return (
+    <div className="mt-10">
+      {/* Section header */}
+      <div className="flex items-center gap-4 mb-6">
+        <div className="retro-divider flex-1" />
+        <h2
+          className="text-xs sm:text-sm uppercase tracking-[3px] font-bold shrink-0"
+          style={{
+            fontFamily: "'Orbitron', sans-serif",
+            color: "var(--neon-cyan)",
+          }}
+        >
+          More Launches
+        </h2>
+        <div className="retro-divider flex-1" />
+      </div>
+
+      {/* Product cards grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {related.map((product) => {
+          const cardScoreColor =
+            product.aiScore >= 90
+              ? "var(--neon-green)"
+              : product.aiScore >= 80
+                ? "var(--neon-cyan)"
+                : product.aiScore >= 70
+                  ? "var(--neon-yellow)"
+                  : "var(--neon-orange)";
+
+          const cardScoreGlow =
+            product.aiScore >= 90
+              ? "0 0 8px rgba(57, 255, 20, 0.4)"
+              : product.aiScore >= 80
+                ? "0 0 8px rgba(0, 240, 255, 0.4)"
+                : "none";
+
+          return (
+            <Link
+              key={product.id}
+              href={`/product/${product.id}`}
+              className="retro-card rounded-xl p-4 sm:p-5 block transition-all duration-200 hover:scale-[1.02] group"
+              style={{ minHeight: "44px" }}
+            >
+              {/* Emoji + Score row */}
+              <div className="flex items-center justify-between mb-3">
+                <div
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center text-xl sm:text-2xl shrink-0"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(176, 38, 255, 0.08))",
+                    border: "1px solid rgba(0, 240, 255, 0.15)",
+                  }}
+                >
+                  {product.logoEmoji}
+                </div>
+                <div
+                  className="text-lg sm:text-xl font-black"
+                  style={{
+                    fontFamily: "'Orbitron', sans-serif",
+                    color: cardScoreColor,
+                    textShadow: cardScoreGlow,
+                  }}
+                >
+                  {product.aiScore}
+                </div>
+              </div>
+
+              {/* Name */}
+              <h3
+                className="text-sm sm:text-base font-bold mb-1 group-hover:text-white transition-colors"
+                style={{
+                  fontFamily: "'Orbitron', sans-serif",
+                  color: "rgba(255, 255, 255, 0.85)",
+                  overflowWrap: "break-word",
+                  wordBreak: "break-word",
+                }}
+              >
+                {product.name}
+              </h3>
+
+              {/* Tagline - single line */}
+              <p
+                className="text-xs text-white/40 mb-3 line-clamp-1"
+                style={{ overflowWrap: "break-word" }}
+              >
+                {product.tagline}
+              </p>
+
+              {/* Category tag */}
+              <span className="tag-pill">{product.category}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
