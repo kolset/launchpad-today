@@ -31,6 +31,7 @@ export function TimeFilterBar({
                   color: "var(--neon-cyan)",
                   fontFamily: "'Orbitron', sans-serif",
                   fontWeight: 600,
+                  textShadow: "0 0 6px rgba(0, 240, 255, 0.4)",
                 }
               : {
                   background: "transparent",

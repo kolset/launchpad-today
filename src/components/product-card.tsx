@@ -7,7 +7,7 @@ import { useState } from "react";
 function ScoreBar({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] uppercase tracking-wider text-white/30 w-16 shrink-0">
+      <span className="text-[10px] uppercase tracking-wider text-white/30 w-20 shrink-0">
         {label}
       </span>
       <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
@@ -33,7 +33,7 @@ function ScoreBar({ value, label }: { value: number; label: string }) {
         />
       </div>
       <span
-        className="text-xs font-bold w-8 text-right"
+        className={`text-xs font-bold w-8 text-right ${value >= 90 ? "neon-glow-green-sm" : value >= 80 ? "neon-glow-cyan-sm" : ""}`}
         style={{
           fontFamily: "'Orbitron', sans-serif",
           color:
@@ -62,10 +62,11 @@ export function ProductCard({
   const [expanded, setExpanded] = useState(false);
 
   const rankClass = rank <= 3 ? `rank-${rank}` : "";
+  const accentClass = rank === 2 ? "rank-accent-2" : rank === 3 ? "rank-accent-3" : "";
 
   return (
     <div
-      className="retro-card rounded-xl p-4 sm:p-5 cursor-pointer"
+      className={`retro-card rounded-xl p-4 sm:p-5 cursor-pointer ${accentClass}`}
       onClick={() => setExpanded(!expanded)}
     >
       <div className="flex items-start gap-3 sm:gap-4">
@@ -106,42 +107,56 @@ export function ProductCard({
               </p>
             </div>
 
-            {/* AI Score */}
-            <div
-              className="shrink-0 rounded-lg px-3 py-1.5 text-center"
-              style={{
-                background:
-                  product.aiScore >= 90
-                    ? "rgba(57, 255, 20, 0.1)"
-                    : product.aiScore >= 80
-                      ? "rgba(0, 240, 255, 0.1)"
-                      : "rgba(255, 230, 0, 0.1)",
-                border: `1px solid ${
-                  product.aiScore >= 90
-                    ? "rgba(57, 255, 20, 0.25)"
-                    : product.aiScore >= 80
-                      ? "rgba(0, 240, 255, 0.25)"
-                      : "rgba(255, 230, 0, 0.25)"
-                }`,
-              }}
-            >
+            {/* AI Score with glow */}
+            <div className="flex items-center gap-2">
               <div
-                className="text-lg sm:text-xl font-black"
+                className="shrink-0 rounded-lg px-3 py-1.5 text-center"
                 style={{
-                  fontFamily: "'Orbitron', sans-serif",
-                  color:
+                  background:
                     product.aiScore >= 90
-                      ? "var(--neon-green)"
+                      ? "rgba(57, 255, 20, 0.1)"
                       : product.aiScore >= 80
-                        ? "var(--neon-cyan)"
-                        : "var(--neon-yellow)",
+                        ? "rgba(0, 240, 255, 0.1)"
+                        : "rgba(255, 230, 0, 0.1)",
+                  border: `1px solid ${
+                    product.aiScore >= 90
+                      ? "rgba(57, 255, 20, 0.25)"
+                      : product.aiScore >= 80
+                        ? "rgba(0, 240, 255, 0.25)"
+                        : "rgba(255, 230, 0, 0.25)"
+                  }`,
                 }}
               >
-                {product.aiScore}
+                <div
+                  className={`text-lg sm:text-xl font-black ${product.aiScore >= 90 ? "neon-glow-green-sm" : product.aiScore >= 80 ? "neon-glow-cyan-sm" : "neon-glow-yellow-sm"}`}
+                  style={{
+                    fontFamily: "'Orbitron', sans-serif",
+                    color:
+                      product.aiScore >= 90
+                        ? "var(--neon-green)"
+                        : product.aiScore >= 80
+                          ? "var(--neon-cyan)"
+                          : "var(--neon-yellow)",
+                  }}
+                >
+                  {product.aiScore}
+                </div>
+                <div className="text-[8px] uppercase tracking-widest text-white/25">
+                  Score
+                </div>
               </div>
-              <div className="text-[8px] uppercase tracking-widest text-white/25">
-                Score
-              </div>
+
+              {/* Expand chevron */}
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                className="text-white/20 transition-transform duration-200 shrink-0"
+                style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
+              >
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
             </div>
           </div>
 
@@ -151,22 +166,27 @@ export function ProductCard({
             <span className="text-[10px] text-white/20">
               by @{product.submittedBy}
             </span>
+            {!expanded && (
+              <span className="text-[10px] text-white/15 ml-auto hidden sm:inline">
+                Tap for AI analysis
+              </span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Expanded content */}
+      {/* Expanded content with animation */}
       {expanded && (
-        <div className="mt-4 pt-4 border-t border-white/[0.06]">
+        <div className="mt-4 pt-4 border-t border-white/[0.06] card-expand-enter overflow-hidden">
           <p className="text-sm text-white/50 leading-relaxed mb-4">
             {product.description}
           </p>
 
-          {/* Score bars */}
+          {/* Score bars with full labels */}
           <div className="space-y-2 mb-4">
-            <ScoreBar value={product.aiBreakdown.innovation} label="Innov." />
-            <ScoreBar value={product.aiBreakdown.execution} label="Exec." />
-            <ScoreBar value={product.aiBreakdown.potential} label="Potent." />
+            <ScoreBar value={product.aiBreakdown.innovation} label="Innovation" />
+            <ScoreBar value={product.aiBreakdown.execution} label="Execution" />
+            <ScoreBar value={product.aiBreakdown.potential} label="Potential" />
             <ScoreBar value={product.aiBreakdown.timing} label="Timing" />
           </div>
 

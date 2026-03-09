@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -76,6 +76,23 @@ body {
   text-shadow: 0 0 7px var(--neon-yellow), 0 0 10px var(--neon-yellow), 0 0 21px var(--neon-yellow);
 }
 
+/* Small neon glows for compact elements */
+.neon-glow-cyan-sm {
+  text-shadow: 0 0 4px var(--neon-cyan), 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+.neon-glow-pink-sm {
+  text-shadow: 0 0 4px var(--neon-pink), 0 0 8px rgba(255, 45, 120, 0.4);
+}
+
+.neon-glow-yellow-sm {
+  text-shadow: 0 0 4px var(--neon-yellow), 0 0 8px rgba(255, 230, 0, 0.4);
+}
+
+.neon-glow-green-sm {
+  text-shadow: 0 0 4px var(--neon-green), 0 0 8px rgba(57, 255, 20, 0.4);
+}
+
 /* Neon border glow */
 .neon-border-cyan {
   box-shadow: 0 0 5px var(--neon-cyan), inset 0 0 5px rgba(0, 240, 255, 0.1);
@@ -98,6 +115,38 @@ body {
 .retro-card:hover {
   border-color: rgba(0, 240, 255, 0.35);
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+/* Winner-specific card — elevated above regular retro-card */
+.winner-card {
+  background: rgba(15, 10, 25, 0.9);
+  border: 2px solid var(--neon-pink);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 0 40px rgba(255, 45, 120, 0.15), 0 0 80px rgba(176, 38, 255, 0.08), inset 0 0 30px rgba(255, 45, 120, 0.05);
+  transition: all 0.3s ease;
+}
+
+.winner-card:hover {
+  box-shadow: 0 0 50px rgba(255, 45, 120, 0.2), 0 0 100px rgba(176, 38, 255, 0.12), inset 0 0 30px rgba(255, 45, 120, 0.08);
+}
+
+/* Rank accent borders for podium positions */
+.rank-accent-2 {
+  border-left: 2px solid var(--neon-cyan);
+}
+
+.rank-accent-3 {
+  border-left: 2px solid var(--neon-pink);
+}
+
+/* Card expand animation */
+.card-expand-enter {
+  animation: cardExpand 0.3s ease-out forwards;
+}
+
+@keyframes cardExpand {
+  0% { opacity: 0; max-height: 0; transform: translateY(-8px); }
+  100% { opacity: 1; max-height: 500px; transform: translateY(0); }
 }
 
 /* Upvote button */
@@ -248,7 +297,7 @@ body {
 .retro-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 /* Tag pill */

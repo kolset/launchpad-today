@@ -48,11 +48,10 @@ export function Countdown() {
               </span>
             )}
             <span
-              className="text-sm sm:text-base font-bold"
+              className="text-sm sm:text-base font-bold neon-glow-cyan-sm"
               style={{
                 fontFamily: "'Orbitron', sans-serif",
                 color: "var(--neon-cyan)",
-                textShadow: "0 0 8px rgba(0, 240, 255, 0.5)",
               }}
             >
               {pad(unit.val)}

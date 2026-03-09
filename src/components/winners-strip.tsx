@@ -8,7 +8,10 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
     week: { accent: "var(--neon-cyan)", bg: "rgba(0, 240, 255, 0.06)", border: "rgba(0, 240, 255, 0.15)" },
     month: { accent: "var(--neon-pink)", bg: "rgba(255, 45, 120, 0.06)", border: "rgba(255, 45, 120, 0.15)" },
   };
-  const c = colors[product.isWinner || "day"];
+  const glowMap = { day: "neon-glow-yellow-sm", week: "neon-glow-cyan-sm", month: "neon-glow-pink-sm" };
+  const winnerType = product.isWinner || "day";
+  const c = colors[winnerType];
+  const glowClass = glowMap[winnerType];
 
   return (
     <div
@@ -34,7 +37,7 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
         <div className="text-[10px] text-white/30 truncate">{product.tagline}</div>
       </div>
       <div
-        className="text-lg font-black shrink-0 ml-auto"
+        className={`text-lg font-black shrink-0 ml-auto ${glowClass}`}
         style={{ fontFamily: "'Orbitron', sans-serif", color: c.accent }}
       >
         {product.aiScore}
