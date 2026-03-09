@@ -36,7 +36,7 @@ function ScoreBar({ value, label }: { value: number; label: string }) {
     <div className="flex items-center gap-3">
       <span
         className="text-[10px] sm:text-xs uppercase tracking-wider text-white/40 w-20 sm:w-24 shrink-0"
-        style={{ fontFamily: "'Space Mono', monospace" }}
+        style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
       >
         {label}
       </span>
@@ -56,7 +56,7 @@ function ScoreBar({ value, label }: { value: number; label: string }) {
       <span
         className={`text-sm sm:text-base font-bold w-10 text-right ${glowClass}`}
         style={{
-          fontFamily: "'Orbitron', sans-serif",
+          fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
           color,
         }}
       >
@@ -87,7 +87,7 @@ function WinnerBadge({ type }: { type: "day" | "week" | "month" }) {
       <span className="text-sm">🏆</span>
       <span
         className="text-[10px] sm:text-xs uppercase tracking-[2px] font-bold"
-        style={{ fontFamily: "'Orbitron', sans-serif", color: c.text }}
+        style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: c.text }}
       >
         {labels[type]}
       </span>
@@ -163,7 +163,7 @@ export function ProductDetail({ product }: { product: Product }) {
           href="/"
           className="inline-flex items-center gap-2 text-xs uppercase tracking-[2px] transition-all duration-200 hover:gap-3 group"
           style={{
-            fontFamily: "'Orbitron', sans-serif",
+            fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
             color: "var(--neon-cyan)",
             minHeight: "44px",
             display: "inline-flex",
@@ -227,7 +227,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-2 flex-wrap">
                   <h1
                     className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
-                    style={{ fontFamily: "'Orbitron', sans-serif", overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%" }}
+                    style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%" }}
                   >
                     {product.name}
                   </h1>
@@ -267,14 +267,14 @@ export function ProductDetail({ product }: { product: Product }) {
                 >
                   <div
                     className="text-[10px] uppercase tracking-[3px] mb-3 font-bold"
-                    style={{ fontFamily: "'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)" }}
+                    style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)" }}
                   >
                     AI Score
                   </div>
                   <div
                     className={`text-6xl sm:text-7xl font-black ${scoreGlowClass}`}
                     style={{
-                      fontFamily: "'Orbitron', sans-serif",
+                      fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                       color: scoreColor,
                       lineHeight: 1,
                     }}
@@ -305,7 +305,7 @@ export function ProductDetail({ product }: { product: Product }) {
               <div>
                 <h3
                   className="text-xs uppercase tracking-[3px] mb-5 font-bold"
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)" }}
                 >
                   Score Breakdown
                 </h3>
@@ -322,7 +322,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     <span className="text-[10px] uppercase tracking-wider text-white/25">
                       Category Average
                     </span>
-                    <span className="text-xs text-white/25" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    <span className="text-xs text-white/25" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
                       ~75
                     </span>
                   </div>
@@ -334,7 +334,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <div className="mb-8" style={{ overflow: "visible" }}>
               <h3
                 className="text-xs uppercase tracking-[3px] mb-3 font-bold"
-                style={{ fontFamily: "'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)", overflowWrap: "break-word", wordBreak: "break-word" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)", overflowWrap: "break-word", wordBreak: "break-word" }}
               >
                 About
               </h3>
@@ -360,7 +360,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 <span className="text-lg">🤖</span>
                 <h3
                   className="text-xs uppercase tracking-[3px] font-bold"
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-purple)" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-purple)" }}
                 >
                   AI Verdict
                 </h3>
@@ -377,7 +377,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-center sm:text-left">
-                  <p className="text-xs text-white/25 uppercase tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <p className="text-xs text-white/25 uppercase tracking-wider" style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}>
                     Share this launch
                   </p>
                 </div>
@@ -388,6 +388,9 @@ export function ProductDetail({ product }: { product: Product }) {
                 </div>
               </div>
             </div>
+
+            {/* Embed Badge section */}
+            <EmbedBadgeSection product={product} />
           </div>
         </div>
 
@@ -406,7 +409,7 @@ export function ProductDetail({ product }: { product: Product }) {
           <a
             href="/"
             className="inline-flex items-center gap-2 text-xs text-white/25 hover:text-white/50 transition-colors"
-            style={{ fontFamily: "'Space Mono', monospace", minHeight: "44px" }}
+            style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace", minHeight: "44px" }}
           >
             launchpad.today
           </a>
@@ -429,7 +432,7 @@ function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
         <h2
           className="text-xs sm:text-sm uppercase tracking-[3px] font-bold shrink-0"
           style={{
-            fontFamily: "'Orbitron', sans-serif",
+            fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
             color: "var(--neon-cyan)",
           }}
         >
@@ -478,7 +481,7 @@ function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
                 <div
                   className="text-lg sm:text-xl font-black"
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
+                    fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                     color: cardScoreColor,
                     textShadow: cardScoreGlow,
                   }}
@@ -491,7 +494,7 @@ function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
               <h3
                 className="text-sm sm:text-base font-bold mb-1 group-hover:text-white transition-colors"
                 style={{
-                  fontFamily: "'Orbitron', sans-serif",
+                  fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                   color: "rgba(255, 255, 255, 0.85)",
                   overflowWrap: "break-word",
                   wordBreak: "break-word",
@@ -518,12 +521,154 @@ function MoreLaunches({ currentProduct }: { currentProduct: Product }) {
   );
 }
 
+function CopySnippetButton({ text, label }: { text: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] uppercase tracking-wider font-bold transition-all duration-200 hover:scale-105 cursor-pointer shrink-0"
+      style={{
+        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
+        background: copied ? "rgba(57, 255, 20, 0.1)" : "rgba(255, 255, 255, 0.06)",
+        border: copied ? "1px solid var(--neon-green)" : "1px solid rgba(255, 255, 255, 0.1)",
+        color: copied ? "var(--neon-green)" : "rgba(255, 255, 255, 0.5)",
+        minHeight: "32px",
+      }}
+    >
+      {copied ? (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+      ) : (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      )}
+      {copied ? "Copied!" : label}
+    </button>
+  );
+}
+
+function EmbedBadgeSection({ product }: { product: Product }) {
+  const productUrl = `https://launchpad.today/product/${product.id}`;
+  const imageUrl = `https://launchpad.today/product/${product.id}/opengraph-image`;
+  const altText = `${product.name} scored ${product.aiScore} on Launchpad.today`;
+
+  const htmlSnippet = `<a href="${productUrl}"><img src="${imageUrl}" width="600" alt="${altText}" /></a>`;
+  const markdownSnippet = `[![${altText}](${imageUrl})](${productUrl})`;
+
+  const scoreColor =
+    product.aiScore >= 90
+      ? "var(--neon-green)"
+      : product.aiScore >= 80
+        ? "var(--neon-cyan)"
+        : product.aiScore >= 70
+          ? "var(--neon-yellow)"
+          : "var(--neon-orange)";
+
+  return (
+    <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <p
+        className="text-xs text-white/25 uppercase tracking-wider mb-4"
+        style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
+      >
+        Embed Badge
+      </p>
+
+      {/* Badge preview */}
+      <div className="mb-5">
+        <div
+          className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg"
+          style={{
+            background: "rgba(0, 0, 0, 0.4)",
+            border: "1px solid rgba(0, 240, 255, 0.2)",
+            boxShadow: "0 0 20px rgba(0, 240, 255, 0.05)",
+          }}
+        >
+          <span className="text-lg">{product.logoEmoji}</span>
+          <span className="text-xs text-white/50" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+            Scored
+          </span>
+          <span
+            className="text-sm font-black"
+            style={{
+              fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
+              color: scoreColor,
+            }}
+          >
+            {product.aiScore}
+          </span>
+          <span className="text-xs text-white/50" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+            on Launchpad.today
+          </span>
+        </div>
+      </div>
+
+      {/* HTML snippet */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[10px] uppercase tracking-wider text-white/30" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+            HTML
+          </span>
+          <CopySnippetButton text={htmlSnippet} label="Copy Code" />
+        </div>
+        <div
+          className="rounded-lg p-3 overflow-x-auto"
+          style={{
+            background: "rgba(0, 0, 0, 0.5)",
+            border: "1px solid rgba(0, 240, 255, 0.15)",
+          }}
+        >
+          <pre
+            className="text-[11px] leading-relaxed text-white/50 whitespace-pre-wrap break-all"
+            style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
+          >
+            {htmlSnippet}
+          </pre>
+        </div>
+      </div>
+
+      {/* Markdown snippet */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[10px] uppercase tracking-wider text-white/30" style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}>
+            Markdown
+          </span>
+          <CopySnippetButton text={markdownSnippet} label="Copy Code" />
+        </div>
+        <div
+          className="rounded-lg p-3 overflow-x-auto"
+          style={{
+            background: "rgba(0, 0, 0, 0.5)",
+            border: "1px solid rgba(0, 240, 255, 0.15)",
+          }}
+        >
+          <pre
+            className="text-[11px] leading-relaxed text-white/50 whitespace-pre-wrap break-all"
+            style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
+          >
+            {markdownSnippet}
+          </pre>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ShareButton({ product, platform }: { product: Product; platform: "twitter" | "linkedin" }) {
   const url = `https://launchpad.today/product/${product.id}`;
   const text =
     platform === "twitter"
-      ? `${product.name} just scored ${product.aiScore} on @LaunchpadToday! ${product.tagline}`
-      : `Check out ${product.name} on Launchpad.today — AI Score: ${product.aiScore}`;
+      ? `Our startup scored ${product.aiScore}/100 on @LaunchpadToday — ranked by AI, not hype. Check it out:`
+      : `${product.name} scored ${product.aiScore}/100 on Launchpad.today — ranked by AI, not hype. Check it out:`;
 
   const shareUrl =
     platform === "twitter"
@@ -539,7 +684,7 @@ function ShareButton({ product, platform }: { product: Product; platform: "twitt
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-bold transition-all duration-200 hover:scale-105"
       style={{
-        fontFamily: "'Orbitron', sans-serif",
+        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
         background: "rgba(255, 255, 255, 0.06)",
         border: "1px solid rgba(255, 255, 255, 0.1)",
         color: "rgba(255, 255, 255, 0.6)",
@@ -577,7 +722,7 @@ function CopyLinkButton({ productId }: { productId: string }) {
       onClick={handleCopy}
       className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-bold transition-all duration-200 hover:scale-105 cursor-pointer"
       style={{
-        fontFamily: "'Orbitron', sans-serif",
+        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
         background: copied ? "rgba(57, 255, 20, 0.1)" : "rgba(255, 255, 255, 0.06)",
         border: copied ? "1px solid var(--neon-green)" : "1px solid rgba(255, 255, 255, 0.1)",
         color: copied ? "var(--neon-green)" : "rgba(255, 255, 255, 0.6)",

@@ -121,7 +121,7 @@ export function AboutContent() {
             <div>
               <h1
                 className="text-lg sm:text-xl font-bold tracking-wider uppercase"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 <span style={{ color: "var(--neon-cyan)" }}>Launch</span>
                 <span style={{ color: "var(--neon-pink)" }}>pad</span>
@@ -133,7 +133,7 @@ export function AboutContent() {
           <div className="flex items-center gap-3 sm:gap-4">
             <span
               className="hidden sm:inline text-xs uppercase tracking-widest text-white/30"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
             >
               Mission Control
             </span>
@@ -154,7 +154,7 @@ export function AboutContent() {
           <div
             className="text-xs uppercase tracking-[6px] mb-4"
             style={{
-              fontFamily: "'Orbitron', sans-serif",
+              fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
               color: "var(--neon-cyan)",
             }}
           >
@@ -162,7 +162,7 @@ export function AboutContent() {
           </div>
           <h2
             className="text-3xl sm:text-5xl font-black tracking-wider uppercase mb-6"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
           >
             <span className="chrome-text">Mission</span>{" "}
             <span style={{ color: "var(--neon-cyan)" }} className="neon-text-cyan">
@@ -192,7 +192,7 @@ export function AboutContent() {
               </div>
               <h3
                 className="text-lg sm:text-xl font-bold tracking-wider uppercase neon-glow-pink-sm"
-                style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-pink)" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-pink)" }}
               >
                 The Mission
               </h3>
@@ -223,7 +223,7 @@ export function AboutContent() {
           <div className="text-center mb-10">
             <h3
               className="text-lg sm:text-2xl font-bold tracking-wider uppercase neon-glow-cyan-sm mb-3"
-              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
             >
               AI Scoring Methodology
             </h3>
@@ -251,7 +251,7 @@ export function AboutContent() {
                     <h4
                       className="text-base font-bold tracking-wider uppercase"
                       style={{
-                        fontFamily: "'Orbitron', sans-serif",
+                        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                         color: criterion.color,
                       }}
                     >
@@ -284,7 +284,7 @@ export function AboutContent() {
               </div>
               <h3
                 className="text-lg sm:text-xl font-bold tracking-wider uppercase neon-glow-cyan-sm"
-                style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
               >
                 How Scores Work
               </h3>
@@ -318,7 +318,7 @@ export function AboutContent() {
                     <span
                       className={`text-sm font-black ${tier.glow}`}
                       style={{
-                        fontFamily: "'Orbitron', sans-serif",
+                        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                         color: tier.color,
                         minWidth: "80px",
                       }}
@@ -344,7 +344,7 @@ export function AboutContent() {
           <div className="text-center mb-10">
             <h3
               className="text-lg sm:text-2xl font-bold tracking-wider uppercase neon-glow-yellow-sm mb-3"
-              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
             >
               Winners
             </h3>
@@ -369,7 +369,7 @@ export function AboutContent() {
                 <h4
                   className={`text-xs font-bold uppercase tracking-[2px] mb-3 ${level.glow}`}
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
+                    fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                     color: level.color,
                   }}
                 >
@@ -396,7 +396,7 @@ export function AboutContent() {
             </div>
             <h3
               className="text-xl sm:text-2xl font-black tracking-wider uppercase mb-3"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               <span className="chrome-text">Ready for</span>{" "}
               <span style={{ color: "var(--neon-pink)" }} className="neon-glow-pink-sm">

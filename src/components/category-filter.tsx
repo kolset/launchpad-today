@@ -31,7 +31,7 @@ export function CategoryFilter({
               className="shrink-0 rounded-md uppercase tracking-wider transition-all whitespace-nowrap"
               style={{
                 scrollSnapAlign: "start",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                 fontSize: "11px",
                 padding: "4px 12px",
                 minHeight: "44px",

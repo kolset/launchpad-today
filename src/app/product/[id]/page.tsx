@@ -87,7 +87,7 @@ function NotFound() {
       <div className="text-6xl mb-6">🛸</div>
       <h1
         className="text-2xl sm:text-4xl font-bold mb-3 neon-text-pink"
-        style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-pink)" }}
+        style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-pink)" }}
       >
         Lost in Space
       </h1>

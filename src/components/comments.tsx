@@ -143,7 +143,7 @@ export function CommentsSection({
         <h2
           className="text-xs sm:text-sm uppercase tracking-[3px] font-bold shrink-0 flex items-center gap-2"
           style={{
-            fontFamily: "'Orbitron', sans-serif",
+            fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
             color: "var(--neon-cyan)",
           }}
         >
@@ -155,7 +155,7 @@ export function CommentsSection({
                 background: "rgba(0, 240, 255, 0.15)",
                 border: "1px solid rgba(0, 240, 255, 0.3)",
                 color: "var(--neon-cyan)",
-                fontFamily: "'Orbitron', sans-serif",
+                fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                 minWidth: "24px",
                 height: "24px",
                 padding: "0 6px",
@@ -181,7 +181,7 @@ export function CommentsSection({
             <div className="text-2xl mb-3">💬</div>
             <p
               className="text-xs uppercase tracking-[2px] text-white/25"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               No comments yet
             </p>
@@ -223,7 +223,7 @@ export function CommentsSection({
                     background: "rgba(255, 45, 120, 0.15)",
                     border: "1px solid rgba(255, 45, 120, 0.3)",
                     color: "var(--neon-pink)",
-                    fontFamily: "'Orbitron', sans-serif",
+                    fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                   }}
                 >
                   Maker
@@ -254,7 +254,7 @@ export function CommentsSection({
           <h3
             className="text-[10px] uppercase tracking-[2px] mb-4 font-bold"
             style={{
-              fontFamily: "'Orbitron', sans-serif",
+              fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
               color: "rgba(255, 255, 255, 0.3)",
             }}
           >

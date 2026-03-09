@@ -43,7 +43,7 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
         </div>
         <div
           className="text-sm font-bold truncate text-white"
-          style={{ fontFamily: "'Orbitron', sans-serif" }}
+          style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
         >
           {product.name}
         </div>
@@ -51,7 +51,7 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
       </div>
       <div
         className={`text-lg font-black shrink-0 ml-auto ${glowClass}`}
-        style={{ fontFamily: "'Orbitron', sans-serif", color: c.accent }}
+        style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: c.accent }}
       >
         {product.aiScore}
       </div>

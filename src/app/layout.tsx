@@ -1,7 +1,22 @@
 import type { Metadata } from "next";
+import { Orbitron, Space_Mono } from "next/font/google";
 import { WebsiteSchema } from "@/components/structured-data";
 import { ToastProvider } from "@/components/toast";
 import "./globals.css";
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-orbitron",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-space-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://launchpad.today"),
@@ -28,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${orbitron.variable} ${spaceMono.variable}`}>
       <body className="scanlines">
         <WebsiteSchema />
         <ToastProvider>

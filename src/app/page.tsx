@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { useToast } from "@/components/toast";
 import { StarsBackground } from "@/components/stars-background";
 import { Header } from "@/components/header";
 import { WinnerBanner } from "@/components/winner-banner";
 import { WinnersStrip } from "@/components/winners-strip";
 import { ProductCard } from "@/components/product-card";
-import { SubmitModal } from "@/components/submit-modal";
-import { SearchModal } from "@/components/search-modal";
 import { TimeFilterBar } from "@/components/time-filter";
 import { CategoryFilter } from "@/components/category-filter";
 import { Countdown } from "@/components/countdown";
@@ -16,6 +14,9 @@ import { Footer } from "@/components/footer";
 import { SmallRocket } from "@/components/rocket-icon";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
 import { TimeFilter, Category, Product } from "@/lib/types";
+
+const SubmitModal = lazy(() => import("@/components/submit-modal").then(m => ({ default: m.SubmitModal })));
+const SearchModal = lazy(() => import("@/components/search-modal").then(m => ({ default: m.SearchModal })));
 
 const EMOJIS = ["🚀", "💡", "⚡", "🔮", "🎯", "🧪", "🛸", "🌟", "🔥", "💎"];
 
@@ -174,7 +175,7 @@ export default function Home() {
               <SmallRocket />
               <h2
                 className="text-lg sm:text-xl font-bold tracking-wider uppercase"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 Launch Rankings
               </h2>
@@ -235,7 +236,7 @@ export default function Home() {
             </div>
             <p
               className="text-sm font-bold mb-1.5"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               {categoryFilter !== "All"
                 ? "No launches found"
@@ -278,7 +279,7 @@ export default function Home() {
                 <div className="text-3xl mb-3">🚀</div>
                 <p
                   className="text-sm font-bold neon-glow-green-sm"
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-green)" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-green)" }}
                 >
                   You&apos;re on the launchpad!
                 </p>
@@ -290,7 +291,7 @@ export default function Home() {
               <>
                 <h3
                   className="text-lg sm:text-xl font-bold tracking-wider uppercase mb-2"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
                 >
                   Get the Daily Winner
                 </h3>
@@ -328,7 +329,7 @@ export default function Home() {
           <div className="retro-divider mb-8" />
           <h3
             className="text-center text-lg sm:text-xl uppercase tracking-[4px] mb-8 neon-glow-cyan-sm"
-            style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
+            style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
           >
             How It Works
           </h3>
@@ -376,13 +377,13 @@ export default function Home() {
                 </div>
                 <div
                   className="text-xs uppercase tracking-[3px] mb-2 font-bold"
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: item.color }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: item.color }}
                 >
                   Level {item.step}
                 </div>
                 <h4
                   className="text-base font-bold mb-2"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
                 >
                   {item.title}
                 </h4>
@@ -407,7 +408,7 @@ export default function Home() {
               <div key={stat.label}>
                 <div
                   className={`text-xl sm:text-2xl font-black ${stat.glow}`}
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: stat.color }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: stat.color }}
                 >
                   {stat.value}
                 </div>
@@ -422,18 +423,26 @@ export default function Home() {
 
       <Footer />
 
-      {/* Submit Modal */}
-      <SubmitModal
-        isOpen={showSubmit}
-        onClose={() => setShowSubmit(false)}
-        onSubmit={handleSubmit}
-      />
+      {/* Submit Modal — lazy-loaded, only fetched when opened */}
+      {showSubmit && (
+        <Suspense fallback={null}>
+          <SubmitModal
+            isOpen={showSubmit}
+            onClose={() => setShowSubmit(false)}
+            onSubmit={handleSubmit}
+          />
+        </Suspense>
+      )}
 
-      {/* Search Modal */}
-      <SearchModal
-        isOpen={showSearch}
-        onClose={() => setShowSearch(false)}
-      />
+      {/* Search Modal — lazy-loaded, only fetched when opened */}
+      {showSearch && (
+        <Suspense fallback={null}>
+          <SearchModal
+            isOpen={showSearch}
+            onClose={() => setShowSearch(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

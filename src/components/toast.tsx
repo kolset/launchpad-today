@@ -192,7 +192,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               <span
                 className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold"
                 style={{
-                  fontFamily: "'Orbitron', sans-serif",
+                  fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                   color: s.iconColor,
                   background: `${s.bg}`,
                   border: `1px solid ${s.border}`,
@@ -206,7 +206,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               <div className="flex-1 min-w-0">
                 <p
                   className="text-xs text-white/90 leading-relaxed"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                 >
                   {toast.message}
                 </p>
@@ -215,7 +215,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                     href={toast.action.href}
                     className="inline-block mt-1.5 text-[10px] uppercase tracking-[2px] font-bold transition-all hover:opacity-80"
                     style={{
-                      fontFamily: "'Orbitron', sans-serif",
+                      fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                       color: s.iconColor,
                       textShadow: `0 0 8px ${s.border}`,
                     }}

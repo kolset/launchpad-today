@@ -72,7 +72,7 @@ export function Footer() {
               <RocketIcon size={28} flame={true} />
               <span
                 className="text-base tracking-wider uppercase"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 <span style={{ color: "var(--neon-cyan)" }}>Launch</span>
                 <span style={{ color: "var(--neon-pink)" }}>pad</span>
@@ -104,12 +104,13 @@ export function Footer() {
           <div className="sm:col-span-3">
             <h4
               className="text-[10px] uppercase tracking-[3px] text-white/20 mb-4"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               Navigate
             </h4>
             <div className="flex flex-col gap-0.5">
               <FooterLink href="/">Today&apos;s Rankings</FooterLink>
+              <FooterLink href="/winners">Winners</FooterLink>
               <FooterLink href="/about">About</FooterLink>
               <FooterLink href="/submit">Submit a Launch</FooterLink>
             </div>
@@ -119,7 +120,7 @@ export function Footer() {
           <div className="sm:col-span-4">
             <h4
               className="text-[10px] uppercase tracking-[3px] text-white/20 mb-4"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               Resources
             </h4>
@@ -138,7 +139,7 @@ export function Footer() {
         >
           <p
             className="text-[10px] uppercase tracking-[3px] text-white/25"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
           >
             Mission Control &copy; {new Date().getFullYear()}
           </p>

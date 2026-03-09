@@ -141,7 +141,7 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             <h2
               id="submit-modal-title"
               className="text-lg sm:text-xl font-bold tracking-wider uppercase"
-              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
             >
               Submit Launch
             </h2>
@@ -164,7 +164,7 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             <p
               className="mt-6 text-sm uppercase tracking-[4px] animate-pulse-glow"
               style={{
-                fontFamily: "'Orbitron', sans-serif",
+                fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                 color: launched ? "var(--neon-green)" : "var(--neon-yellow)",
               }}
             >

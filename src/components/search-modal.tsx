@@ -244,7 +244,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               placeholder="Search launches..."
               className="w-full bg-transparent text-sm text-white placeholder:text-white/25 outline-none caret-[var(--neon-cyan)]"
               style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                 caretColor: "var(--neon-cyan)",
               }}
             />
@@ -254,7 +254,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <kbd
             className="hidden sm:inline-flex items-center text-[10px] uppercase tracking-wider text-white/25 px-2 py-1 rounded"
             style={{
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
               border: "1px solid rgba(255, 255, 255, 0.1)",
               background: "rgba(255, 255, 255, 0.03)",
               minHeight: "24px",
@@ -270,7 +270,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <div className="flex items-center justify-between mb-3">
               <span
                 className="text-[10px] uppercase tracking-[2px] text-white/30"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 Recent Searches
               </span>
@@ -278,7 +278,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 onClick={handleClearRecent}
                 className="text-[10px] uppercase tracking-wider text-white/20 hover:text-white/50 transition-colors"
                 style={{
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                   minHeight: "44px",
                   minWidth: "44px",
                   display: "inline-flex",
@@ -328,7 +328,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   </svg>
                   <span
                     className="text-sm text-white/50 group-hover:text-white/80 transition-colors"
-                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                   >
                     {term}
                   </span>
@@ -352,7 +352,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <div className="px-3 py-2">
               <span
                 className="block px-2 py-2 text-[10px] uppercase tracking-[2px] text-white/30"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 Results
               </span>
@@ -396,7 +396,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <div className="flex items-center gap-2">
                       <span
                         className="text-sm font-bold text-white/90 group-hover:text-white transition-colors truncate"
-                        style={{ fontFamily: "'Orbitron', sans-serif" }}
+                        style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
                       >
                         {product.name}
                       </span>
@@ -407,7 +407,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     </div>
                     <p
                       className="text-xs text-white/40 truncate mt-0.5"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
+                      style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
                     >
                       {product.tagline}
                     </p>
@@ -417,7 +417,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <div
                     className="text-sm font-black shrink-0"
                     style={{
-                      fontFamily: "'Orbitron', sans-serif",
+                      fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                       color:
                         product.aiScore >= 90
                           ? "var(--neon-yellow)"
@@ -450,13 +450,13 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <div className="text-3xl mb-3">🚀</div>
             <p
               className="text-sm font-bold text-white/50 mb-1"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               No launches found
             </p>
             <p
               className="text-xs text-white/25"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
             >
               Try a different search term
             </p>
@@ -468,7 +468,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <div className="px-5 py-8 text-center">
             <p
               className="text-xs text-white/25"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
             >
               Type to search products, categories, or taglines
             </p>
@@ -520,7 +520,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           </div>
           <span
             className="text-[10px] text-white/15 hidden sm:inline"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
           >
             launchpad.today
           </span>

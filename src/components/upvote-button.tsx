@@ -103,7 +103,7 @@ export function UpvoteButton({
       {/* Vote count - ABOVE the rocket for visibility */}
       <span
         style={{
-          fontFamily: "'Orbitron', sans-serif",
+          fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
           fontSize: "13px",
           fontWeight: 800,
           color: voted ? "var(--neon-pink)" : "rgba(255,255,255,0.4)",

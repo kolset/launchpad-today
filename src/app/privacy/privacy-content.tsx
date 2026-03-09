@@ -87,7 +87,7 @@ export function PrivacyContent() {
             <div>
               <h1
                 className="text-lg sm:text-xl font-bold tracking-wider uppercase"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 <span style={{ color: "var(--neon-cyan)" }}>Launch</span>
                 <span style={{ color: "var(--neon-pink)" }}>pad</span>
@@ -112,7 +112,7 @@ export function PrivacyContent() {
           <div
             className="text-xs uppercase tracking-[6px] mb-4"
             style={{
-              fontFamily: "'Orbitron', sans-serif",
+              fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
               color: "var(--neon-cyan)",
             }}
           >
@@ -120,7 +120,7 @@ export function PrivacyContent() {
           </div>
           <h2
             className="text-3xl sm:text-4xl font-black tracking-wider uppercase mb-4"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
           >
             <span className="chrome-text">Privacy</span>{" "}
             <span style={{ color: "var(--neon-cyan)" }} className="neon-text-cyan">
@@ -163,7 +163,7 @@ export function PrivacyContent() {
                   <h3
                     className={`text-sm sm:text-base font-bold tracking-wider uppercase ${section.glowClass}`}
                     style={{
-                      fontFamily: "'Orbitron', sans-serif",
+                      fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                       color: section.color,
                     }}
                   >
@@ -192,7 +192,7 @@ export function PrivacyContent() {
           >
             <h3
               className="text-sm font-bold tracking-wider uppercase neon-glow-cyan-sm mb-3"
-              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
             >
               Questions?
             </h3>

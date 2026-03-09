@@ -53,7 +53,7 @@ export function Countdown() {
             <span
               className="text-sm sm:text-base font-bold neon-glow-cyan-sm"
               style={{
-                fontFamily: "'Orbitron', sans-serif",
+                fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                 color: "var(--neon-cyan)",
               }}
             >

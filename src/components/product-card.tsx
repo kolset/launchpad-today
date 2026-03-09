@@ -45,7 +45,7 @@ function ScoreBar({ value, label, delay = 0 }: { value: number; label: string; d
       <span
         className={`text-xs font-bold w-8 text-right ${glowClass}`}
         style={{
-          fontFamily: "'Orbitron', sans-serif",
+          fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
           color,
         }}
       >
@@ -103,7 +103,7 @@ export function ProductCard({
             <div className="min-w-0">
               <h3
                 className="text-sm sm:text-base font-bold tracking-wide truncate"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
               >
                 <Link
                   href={`/product/${product.id}`}
@@ -154,7 +154,7 @@ export function ProductCard({
                 <div
                   className={`text-lg sm:text-xl font-black ${product.aiScore >= 90 ? "neon-glow-green-sm" : product.aiScore >= 80 ? "neon-glow-cyan-sm" : "neon-glow-yellow-sm"}`}
                   style={{
-                    fontFamily: "'Orbitron', sans-serif",
+                    fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                     color:
                       product.aiScore >= 90
                         ? "var(--neon-green)"
@@ -268,7 +268,7 @@ export function ProductCard({
             <Link
               href={`/product/${product.id}`}
               className="neon-link text-xs uppercase tracking-widest transition-all"
-              style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
+              style={{ color: "var(--neon-pink)", fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
             >
               Full Details &rarr;
             </Link>

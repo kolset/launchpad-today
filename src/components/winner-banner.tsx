@@ -23,7 +23,7 @@ export function WinnerBanner({ product }: { product: Product }) {
             <span className="text-lg sm:text-xl trophy-shimmer" aria-hidden="true">🏆</span>
             <span
               className="text-xs sm:text-sm uppercase tracking-[4px] neon-text-yellow"
-              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
             >
               Product of the Day
             </span>
@@ -49,7 +49,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               <div className="text-center">
                 <div
                   className="text-3xl sm:text-4xl font-black neon-text-yellow"
-                  style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
                 >
                   {product.aiScore}
                 </div>
@@ -62,7 +62,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               <div className="flex items-start gap-2 sm:gap-3 mb-2">
                 <h2
                   className="text-xl sm:text-4xl font-bold tracking-tight break-words"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
                 >
                   {product.name}
                 </h2>
@@ -105,7 +105,7 @@ export function WinnerBanner({ product }: { product: Product }) {
                     <span
                       className={`text-xs font-bold ${value >= 90 ? "neon-glow-green-sm" : value >= 80 ? "neon-glow-cyan-sm" : ""}`}
                       style={{
-                        fontFamily: "'Orbitron', sans-serif",
+                        fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                         color: value >= 90 ? "var(--neon-green)" : value >= 80 ? "var(--neon-cyan)" : "var(--neon-orange)",
                       }}
                     >
@@ -119,7 +119,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               <a
                 href={`/product/${product.id}`}
                 className="neon-link inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-widest transition-all duration-200 hover:gap-3"
-                style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px" }}
+                style={{ color: "var(--neon-pink)", fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif", minHeight: "44px" }}
               >
                 View Full Details &rarr;
               </a>

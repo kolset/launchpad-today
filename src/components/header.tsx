@@ -17,7 +17,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
         style={{
           background: "var(--neon-cyan)",
           color: "var(--deep-black)",
-          fontFamily: "'Orbitron', sans-serif",
+          fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
         }}
       >
         Skip to main content
@@ -31,7 +31,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
           <div>
             <h1
               className="text-lg sm:text-xl font-bold tracking-wider uppercase"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif" }}
             >
               <span style={{ color: "var(--neon-cyan)" }}>Launch</span>
               <span style={{ color: "var(--neon-pink)" }}>pad</span>
@@ -44,7 +44,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
         <div className="flex items-center gap-3 sm:gap-4">
           <span
             className="hidden sm:inline text-xs uppercase tracking-widest text-white/30"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            style={{ fontFamily: "var(--font-space-mono), 'Space Mono', monospace" }}
           >
             AI-Ranked Launches
           </span>
@@ -89,7 +89,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
             <kbd
               className="hidden sm:inline-flex items-center text-[10px] text-white/25 px-1.5 py-0.5 rounded"
               style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
                 background: "rgba(255, 255, 255, 0.03)",
               }}

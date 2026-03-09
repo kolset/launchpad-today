@@ -31,7 +31,7 @@ export function TimeFilterBar({
                   background: "rgba(0, 240, 255, 0.1)",
                   border: "1px solid rgba(0, 240, 255, 0.25)",
                   color: "var(--neon-cyan)",
-                  fontFamily: "'Orbitron', sans-serif",
+                  fontFamily: "var(--font-orbitron), 'Orbitron', sans-serif",
                   fontWeight: 600,
                   textShadow: "0 0 6px rgba(0, 240, 255, 0.4)",
                 }
@@ -40,7 +40,7 @@ export function TimeFilterBar({
                   background: "transparent",
                   border: "1px solid transparent",
                   color: "rgba(255,255,255,0.35)",
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "var(--font-space-mono), 'Space Mono', monospace",
                 }
           }
         >
