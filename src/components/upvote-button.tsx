@@ -72,7 +72,7 @@ export function UpvoteButton({
       style={{
         minWidth: "44px",
         minHeight: "44px",
-        padding: "6px 4px",
+        padding: "4px 6px",
         background: voted
           ? "rgba(255, 45, 120, 0.2)"
           : "rgba(255, 255, 255, 0.03)",
@@ -88,10 +88,28 @@ export function UpvoteButton({
       }}
       aria-label={voted ? "Remove upvote" : "Upvote this product"}
     >
+      {/* Vote count - ABOVE the rocket for visibility */}
+      <span
+        style={{
+          fontFamily: "'Orbitron', sans-serif",
+          fontSize: "13px",
+          fontWeight: 800,
+          color: voted ? "var(--neon-pink)" : "rgba(255,255,255,0.4)",
+          textShadow: voted
+            ? "0 0 6px rgba(255, 45, 120, 0.6), 0 0 12px rgba(255, 45, 120, 0.3)"
+            : "none",
+          lineHeight: 1,
+          transition: "all 0.2s ease",
+          marginBottom: "2px",
+        }}
+      >
+        {count}
+      </span>
+
       {/* Rocket SVG */}
       <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill={voted ? "var(--neon-pink)" : "none"}
         stroke={voted ? "var(--neon-pink)" : "rgba(255,255,255,0.2)"}
@@ -110,24 +128,6 @@ export function UpvoteButton({
         <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
         <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
       </svg>
-
-      {/* Vote count */}
-      <span
-        style={{
-          fontFamily: "'Orbitron', sans-serif",
-          fontSize: "10px",
-          fontWeight: 700,
-          color: voted ? "var(--neon-pink)" : "rgba(255,255,255,0.2)",
-          textShadow: voted
-            ? "0 0 4px rgba(255, 45, 120, 0.4)"
-            : "none",
-          marginTop: "2px",
-          lineHeight: 1,
-          transition: "all 0.2s ease",
-        }}
-      >
-        {count}
-      </span>
     </button>
   );
 }

@@ -109,7 +109,7 @@ export function ProductCard({
             </div>
 
             {/* Upvote + AI Score + Chevron */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {/* Upvote button */}
               <UpvoteButton
                 productId={product.id}
@@ -150,7 +150,7 @@ export function ProductCard({
                   {product.aiScore}
                 </div>
                 <div className="text-[8px] uppercase tracking-widest text-white/25">
-                  Score
+                  AI
                 </div>
               </div>
 
@@ -160,7 +160,7 @@ export function ProductCard({
                 height="16"
                 viewBox="0 0 16 16"
                 fill="none"
-                className="text-white/20 transition-transform duration-200 shrink-0"
+                className="text-white/20 transition-transform duration-200 shrink-0 hidden sm:block"
                 style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
               >
                 <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -185,8 +185,8 @@ export function ProductCard({
 
       {/* Expanded content with animation */}
       {expanded && (
-        <div className="mt-4 pt-4 border-t border-white/[0.06] card-expand-enter overflow-hidden">
-          <p className="text-sm text-white/50 leading-relaxed mb-4">
+        <div className="mt-4 pt-4 border-t border-white/[0.06] card-expand-enter" style={{ overflow: "visible" }}>
+          <p className="text-sm text-white/50 leading-relaxed mb-4" style={{ overflowWrap: "break-word", wordBreak: "break-word", whiteSpace: "normal" }}>
             {product.description}
           </p>
 

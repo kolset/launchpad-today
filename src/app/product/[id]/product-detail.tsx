@@ -187,6 +187,7 @@ export function ProductDetail({ product }: { product: Product }) {
         {/* Main card */}
         <div
           className={isWinner ? "winner-card rounded-2xl sm:rounded-3xl relative" : "retro-card rounded-2xl sm:rounded-3xl relative"}
+          style={{ overflow: "visible" }}
         >
           {/* Top glow gradient */}
           <div
@@ -199,7 +200,7 @@ export function ProductDetail({ product }: { product: Product }) {
             }}
           />
 
-          <div className="relative p-5 sm:p-8 md:p-10 min-w-0" style={{ overflowWrap: "break-word" }}>
+          <div className="relative p-5 sm:p-8 md:p-10 min-w-0" style={{ overflowWrap: "break-word", wordBreak: "break-word", overflow: "visible" }}>
             {/* Header: emoji + name + tagline */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-8">
               {/* Large emoji */}
@@ -220,11 +221,11 @@ export function ProductDetail({ product }: { product: Product }) {
                 {product.logoEmoji}
               </div>
 
-              <div className="text-center sm:text-left flex-1 min-w-0">
+              <div className="text-center sm:text-left flex-1 min-w-0" style={{ overflow: "visible", maxWidth: "100%" }}>
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-2 flex-wrap">
                   <h1
                     className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
-                    style={{ fontFamily: "'Orbitron', sans-serif", overflowWrap: "break-word", wordBreak: "break-word" }}
+                    style={{ fontFamily: "'Orbitron', sans-serif", overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%" }}
                   >
                     {product.name}
                   </h1>
@@ -232,7 +233,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 </div>
                 <p
                   className="text-sm sm:text-base md:text-lg"
-                  style={{ color: "var(--neon-cyan)", overflowWrap: "break-word", wordBreak: "break-word" }}
+                  style={{ color: "var(--neon-cyan)", overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%" }}
                 >
                   {product.tagline}
                 </p>
@@ -328,16 +329,16 @@ export function ProductDetail({ product }: { product: Product }) {
             </div>
 
             {/* Description */}
-            <div className="mb-8">
+            <div className="mb-8" style={{ overflow: "visible" }}>
               <h3
                 className="text-xs uppercase tracking-[3px] mb-3 font-bold"
-                style={{ fontFamily: "'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)" }}
+                style={{ fontFamily: "'Orbitron', sans-serif", color: "rgba(255,255,255,0.35)", overflowWrap: "break-word", wordBreak: "break-word" }}
               >
                 About
               </h3>
               <p
                 className="text-sm sm:text-base text-white/60 leading-relaxed"
-                style={{ overflowWrap: "break-word", wordBreak: "break-word" }}
+                style={{ overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%", whiteSpace: "normal" }}
               >
                 {product.description}
               </p>
@@ -350,6 +351,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 background: "rgba(176, 38, 255, 0.06)",
                 border: "1px solid rgba(176, 38, 255, 0.2)",
                 boxShadow: "0 0 30px rgba(176, 38, 255, 0.05)",
+                overflow: "visible",
               }}
             >
               <div className="flex items-center gap-2 mb-3">
@@ -363,7 +365,7 @@ export function ProductDetail({ product }: { product: Product }) {
               </div>
               <p
                 className="text-sm sm:text-base text-white/70 leading-relaxed"
-                style={{ overflowWrap: "break-word", wordBreak: "break-word" }}
+                style={{ overflowWrap: "break-word", wordBreak: "break-word", maxWidth: "100%", whiteSpace: "normal" }}
               >
                 {product.aiVerdict}
               </p>
