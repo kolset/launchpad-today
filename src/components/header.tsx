@@ -31,8 +31,9 @@ export function Header({ onSubmitClick }: { onSubmitClick: () => void }) {
           >
             AI-Ranked Launches
           </span>
-          <button onClick={onSubmitClick} className="submit-btn px-4 py-2 rounded text-xs sm:text-sm text-white">
-            Submit Launch
+          <button onClick={onSubmitClick} className="submit-btn px-3 sm:px-4 py-2 rounded text-xs sm:text-sm text-white whitespace-nowrap">
+            <span className="sm:hidden">Launch</span>
+            <span className="hidden sm:inline">Submit Launch</span>
           </button>
         </div>
       </div>

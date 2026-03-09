@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { RocketIcon } from "./rocket-icon";
 
 export function Footer() {
@@ -32,7 +33,7 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-4 text-xs text-white/30">
-            <span className="hover:text-white/50 cursor-pointer transition-colors">About</span>
+            <Link href="/about" className="hover:text-white/50 transition-colors">About</Link>
             <span className="hover:text-white/50 cursor-pointer transition-colors">API</span>
             <span className="hover:text-white/50 cursor-pointer transition-colors">Twitter</span>
           </div>

@@ -207,17 +207,27 @@ export function ProductCard({
             <span className="text-white/70">{product.aiVerdict}</span>
           </div>
 
-          {/* Link */}
-          <a
-            href={product.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-3 text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
-            style={{ color: "var(--neon-cyan)" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            Visit Site &rarr;
-          </a>
+          {/* Links */}
+          <div className="flex items-center gap-4 mt-3">
+            <a
+              href={`/product/${product.id}`}
+              className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
+              style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Full Details &rarr;
+            </a>
+            <a
+              href={product.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
+              style={{ color: "var(--neon-cyan)", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Visit Site &rarr;
+            </a>
+          </div>
         </div>
       )}
     </div>

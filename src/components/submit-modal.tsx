@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CATEGORIES, Category } from "@/lib/types";
 import { RocketIcon } from "./rocket-icon";
 
@@ -26,6 +26,18 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
   const [submittedBy, setSubmittedBy] = useState("");
   const [launching, setLaunching] = useState(false);
   const [launched, setLaunched] = useState(false);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

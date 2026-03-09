@@ -29,10 +29,10 @@ export function WinnerBanner({ product }: { product: Product }) {
         </div>
 
         {/* Winner card — uses elevated winner-card class */}
-        <div className="winner-card rounded-2xl p-5 sm:p-8 max-w-3xl mx-auto overflow-hidden">
-          <div className="flex flex-col sm:flex-row items-start gap-5">
+        <div className="winner-card rounded-2xl p-4 sm:p-8 max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
             {/* Logo + Score */}
-            <div className="flex sm:flex-col items-center gap-4 sm:gap-2">
+            <div className="flex sm:flex-col items-center gap-4 sm:gap-2 shrink-0">
               <div
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center text-3xl sm:text-4xl"
                 style={{
@@ -54,15 +54,15 @@ export function WinnerBanner({ product }: { product: Product }) {
             </div>
 
             {/* Details */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start gap-3 mb-2">
+            <div className="flex-1 min-w-0 w-full">
+              <div className="flex items-start gap-2 sm:gap-3 mb-2">
                 <h2
-                  className="text-2xl sm:text-4xl font-bold tracking-tight"
+                  className="text-xl sm:text-4xl font-bold tracking-tight break-words"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
                   {product.name}
                 </h2>
-                <RocketIcon size={28} flame={true} className="mt-1 shrink-0" />
+                <RocketIcon size={24} flame={true} className="mt-1 shrink-0" />
               </div>
               <p
                 className="text-sm sm:text-base mb-3"
@@ -70,7 +70,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               >
                 {product.tagline}
               </p>
-              <p className="text-xs sm:text-sm text-white/50 leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-white/50 leading-relaxed mb-4 break-words">
                 {product.description}
               </p>
 
@@ -88,14 +88,14 @@ export function WinnerBanner({ product }: { product: Product }) {
                 >
                   AI Verdict:{" "}
                 </span>
-                <span className="text-white/70">{product.aiVerdict}</span>
+                <span className="text-white/70 break-words">{product.aiVerdict}</span>
               </div>
 
               {/* Score breakdown with glows */}
-              <div className="flex flex-wrap gap-2 sm:gap-3 mt-4">
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 mt-4">
                 {Object.entries(product.aiBreakdown).map(([key, value]) => (
                   <div key={key} className="flex items-center gap-1.5">
-                    <span className="text-[10px] uppercase tracking-wider text-white/30">
+                    <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-white/30">
                       {key}
                     </span>
                     <span
@@ -110,6 +110,15 @@ export function WinnerBanner({ product }: { product: Product }) {
                   </div>
                 ))}
               </div>
+
+              {/* View full details link */}
+              <a
+                href={`/product/${product.id}`}
+                className="inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-widest hover:opacity-80 transition-all duration-200 hover:gap-3"
+                style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px" }}
+              >
+                View Full Details &rarr;
+              </a>
             </div>
           </div>
         </div>
