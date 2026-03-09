@@ -353,7 +353,7 @@ export default function Home() {
               <div key={item.step} className="retro-card rounded-xl p-6 text-center">
                 {/* Icon with neon container */}
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl mx-auto mb-4"
+                  className="card-icon w-14 h-14 rounded-xl flex items-center justify-center text-2xl mx-auto mb-4"
                   style={{
                     border: `1px solid ${item.borderColor}`,
                     boxShadow: `0 0 12px ${item.glowColor}`,

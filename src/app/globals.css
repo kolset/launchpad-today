@@ -123,6 +123,15 @@ body {
   transition-duration: 0.1s;
 }
 
+/* Subtle icon lift on card hover */
+.retro-card:hover .card-icon {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.card-icon {
+  transition: transform 0.3s ease;
+}
+
 /* Winner-specific card — elevated above regular retro-card */
 .winner-card {
   background: rgba(15, 10, 25, 0.9);
@@ -131,10 +140,16 @@ body {
   box-shadow: 0 0 40px rgba(255, 45, 120, 0.15), 0 0 80px rgba(176, 38, 255, 0.08), inset 0 0 30px rgba(255, 45, 120, 0.05);
   transition: all 0.3s ease;
   overflow: visible;
+  animation: winnerBorderPulse 4s ease-in-out infinite;
 }
 
 .winner-card:hover {
-  box-shadow: 0 0 50px rgba(255, 45, 120, 0.2), 0 0 100px rgba(176, 38, 255, 0.12), inset 0 0 30px rgba(255, 45, 120, 0.08);
+  box-shadow: 0 0 50px rgba(255, 45, 120, 0.25), 0 0 100px rgba(176, 38, 255, 0.15), inset 0 0 30px rgba(255, 45, 120, 0.08);
+}
+
+@keyframes winnerBorderPulse {
+  0%, 100% { border-color: var(--neon-pink); box-shadow: 0 0 40px rgba(255, 45, 120, 0.15), 0 0 80px rgba(176, 38, 255, 0.08), inset 0 0 30px rgba(255, 45, 120, 0.05); }
+  50% { border-color: rgba(255, 45, 120, 0.6); box-shadow: 0 0 50px rgba(255, 45, 120, 0.2), 0 0 90px rgba(176, 38, 255, 0.1), inset 0 0 30px rgba(255, 45, 120, 0.06); }
 }
 
 /* Rank accent borders for podium positions */
@@ -212,6 +227,12 @@ body {
 .submit-btn:hover {
   box-shadow: 0 0 30px rgba(255, 45, 120, 0.5), 0 0 60px rgba(176, 38, 255, 0.3);
   transform: translateY(-2px);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0px) scale(0.97);
+  box-shadow: 0 0 15px rgba(255, 45, 120, 0.4), 0 0 30px rgba(176, 38, 255, 0.2);
+  transition-duration: 0.1s;
 }
 
 /* Rocket flame animation */
@@ -335,7 +356,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 2px 8px;
-  border-radius: 2px;
+  border-radius: 4px;
   background: rgba(0, 240, 255, 0.1);
   border: 1px solid rgba(0, 240, 255, 0.2);
   color: var(--neon-cyan);
@@ -410,6 +431,58 @@ body {
   color: rgba(255, 255, 255, 0.3);
 }
 
+/* Winner strip card hover */
+.winner-strip-card {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.winner-strip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.winner-strip-card:active {
+  transform: translateY(0px) scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Trophy shimmer for winner banner */
+@keyframes trophyShimmer {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 230, 0, 0.4); }
+  50% { text-shadow: 0 0 16px rgba(255, 230, 0, 0.7), 0 0 32px rgba(255, 230, 0, 0.3); }
+}
+
+.trophy-shimmer {
+  animation: trophyShimmer 3s ease-in-out infinite;
+}
+
+/* Product card link neon hover */
+.neon-link {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.neon-link:hover {
+  text-shadow: 0 0 8px currentColor;
+}
+
+.neon-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  transition: width 0.25s ease;
+}
+
+.neon-link:hover::after {
+  width: 100%;
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .animate-flame,
@@ -419,7 +492,9 @@ body {
   .card-stagger,
   .card-expand-enter,
   .animate-bar-fill,
-  .modal-card-enter {
+  .modal-card-enter,
+  .winner-card,
+  .trophy-shimmer {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

@@ -23,10 +23,11 @@ export function TimeFilterBar({
           key={f.value}
           onClick={() => onChange(f.value)}
           aria-pressed={active === f.value}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs transition-all"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs transition-all"
           style={
             active === f.value
               ? {
+                  minHeight: "44px",
                   background: "rgba(0, 240, 255, 0.1)",
                   border: "1px solid rgba(0, 240, 255, 0.25)",
                   color: "var(--neon-cyan)",
@@ -35,6 +36,7 @@ export function TimeFilterBar({
                   textShadow: "0 0 6px rgba(0, 240, 255, 0.4)",
                 }
               : {
+                  minHeight: "44px",
                   background: "transparent",
                   border: "1px solid transparent",
                   color: "rgba(255,255,255,0.35)",

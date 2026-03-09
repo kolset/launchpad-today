@@ -28,7 +28,7 @@ export function CategoryFilter({
               key={cat}
               onClick={() => onChange(cat)}
               aria-pressed={isActive}
-              className="shrink-0 rounded-sm uppercase tracking-wider transition-all whitespace-nowrap"
+              className="shrink-0 rounded-md uppercase tracking-wider transition-all whitespace-nowrap"
               style={{
                 scrollSnapAlign: "start",
                 fontFamily: "'Space Mono', monospace",

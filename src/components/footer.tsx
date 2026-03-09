@@ -4,7 +4,7 @@ import Link from "next/link";
 import { RocketIcon } from "./rocket-icon";
 
 function FooterLink({ href, children, external }: { href: string; children: React.ReactNode; external?: boolean }) {
-  const baseClass = "text-xs text-white/30 hover:text-white/60 transition-colors duration-200";
+  const baseClass = "text-xs text-white/35 hover:text-[var(--neon-cyan)] transition-colors duration-200";
   if (external) {
     return (
       <a
@@ -137,12 +137,12 @@ export function Footer() {
           style={{ borderTop: "1px solid rgba(255, 255, 255, 0.04)" }}
         >
           <p
-            className="text-[10px] uppercase tracking-[3px] text-white/15"
+            className="text-[10px] uppercase tracking-[3px] text-white/25"
             style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             Mission Control &copy; {new Date().getFullYear()}
           </p>
-          <p className="text-[10px] text-white/10">
+          <p className="text-[10px] text-white/20">
             Built with AI. Ranked by AI. No humans were bribed.
           </p>
         </div>

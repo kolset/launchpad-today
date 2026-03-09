@@ -107,7 +107,14 @@ export function ProductCard({
               >
                 <Link
                   href={`/product/${product.id}`}
-                  className="hover:underline decoration-white/30 underline-offset-2 transition-colors hover:text-[var(--neon-cyan)]"
+                  className="transition-all duration-200 hover:text-[var(--neon-cyan)]"
+                  style={{ textDecoration: "none" }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.textShadow = "0 0 8px rgba(0, 240, 255, 0.4)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.textShadow = "none";
+                  }}
                 >
                   {product.name}
                 </Link>
@@ -175,7 +182,7 @@ export function ProductCard({
                 aria-label={expanded ? "Collapse AI score" : "Expand AI score"}
               >
                 <span className="text-[10px] uppercase tracking-wider text-white/30">
-                  {expanded ? "Close" : "AI Score"}
+                  {expanded ? "Close" : "Details"}
                 </span>
                 <svg
                   width="14"
@@ -237,7 +244,7 @@ export function ProductCard({
           <div className="flex items-center gap-4 mt-3">
             <Link
               href={`/product/${product.id}`}
-              className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
+              className="neon-link text-xs uppercase tracking-widest transition-all"
               style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
             >
               Full Details &rarr;
@@ -246,7 +253,7 @@ export function ProductCard({
               href={product.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
+              className="neon-link text-xs uppercase tracking-widest transition-all"
               style={{ color: "var(--neon-cyan)", minHeight: "44px", display: "inline-flex", alignItems: "center" }}
             >
               Visit Site &rarr;

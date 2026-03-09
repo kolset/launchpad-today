@@ -86,6 +86,18 @@ export function UpvoteButton({
         transform: animating ? "scale(1.15)" : "scale(1)",
         transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
+      onMouseEnter={(e) => {
+        if (!voted) {
+          e.currentTarget.style.background = "rgba(255, 45, 120, 0.08)";
+          e.currentTarget.style.borderColor = "rgba(255, 45, 120, 0.25)";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!voted) {
+          e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+          e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+        }
+      }}
       aria-label={voted ? "Remove upvote" : "Upvote this product"}
     >
       {/* Vote count - ABOVE the rocket for visibility */}

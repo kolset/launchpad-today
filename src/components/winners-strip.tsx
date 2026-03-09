@@ -1,22 +1,32 @@
 "use client";
 
+import Link from "next/link";
 import { Product } from "@/lib/types";
 
 function WinnerCard({ product, label }: { product: Product; label: string }) {
   const colors = {
-    day: { accent: "var(--neon-yellow)", bg: "rgba(255, 230, 0, 0.06)", border: "rgba(255, 230, 0, 0.15)" },
-    week: { accent: "var(--neon-cyan)", bg: "rgba(0, 240, 255, 0.06)", border: "rgba(0, 240, 255, 0.15)" },
-    month: { accent: "var(--neon-pink)", bg: "rgba(255, 45, 120, 0.06)", border: "rgba(255, 45, 120, 0.15)" },
+    day: { accent: "var(--neon-yellow)", bg: "rgba(255, 230, 0, 0.06)", border: "rgba(255, 230, 0, 0.15)", hoverBorder: "rgba(255, 230, 0, 0.35)" },
+    week: { accent: "var(--neon-cyan)", bg: "rgba(0, 240, 255, 0.06)", border: "rgba(0, 240, 255, 0.15)", hoverBorder: "rgba(0, 240, 255, 0.35)" },
+    month: { accent: "var(--neon-pink)", bg: "rgba(255, 45, 120, 0.06)", border: "rgba(255, 45, 120, 0.15)", hoverBorder: "rgba(255, 45, 120, 0.35)" },
   };
   const glowMap = { day: "neon-glow-yellow-sm", week: "neon-glow-cyan-sm", month: "neon-glow-pink-sm" };
+  const iconMap = { day: "☀️", week: "📅", month: "👑" };
   const winnerType = product.isWinner || "day";
   const c = colors[winnerType];
   const glowClass = glowMap[winnerType];
+  const icon = iconMap[winnerType];
 
   return (
-    <div
-      className="rounded-xl p-4 flex items-center gap-3 min-w-0"
+    <Link
+      href={`/product/${product.id}`}
+      className="winner-strip-card rounded-xl p-4 flex items-center gap-3 min-w-0 no-underline"
       style={{ background: c.bg, border: `1px solid ${c.border}` }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = c.hoverBorder;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = c.border;
+      }}
     >
       <div
         className="w-10 h-10 rounded-lg flex items-center justify-center text-xl shrink-0"
@@ -25,11 +35,14 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
         {product.logoEmoji}
       </div>
       <div className="min-w-0">
-        <div className="text-[10px] uppercase tracking-[2px] mb-0.5" style={{ color: c.accent }}>
-          {label}
+        <div className="flex items-center gap-1.5 mb-0.5">
+          <span className="text-xs" aria-hidden="true">{icon}</span>
+          <span className="text-[10px] uppercase tracking-[2px]" style={{ color: c.accent }}>
+            {label}
+          </span>
         </div>
         <div
-          className="text-sm font-bold truncate"
+          className="text-sm font-bold truncate text-white"
           style={{ fontFamily: "'Orbitron', sans-serif" }}
         >
           {product.name}
@@ -42,7 +55,7 @@ function WinnerCard({ product, label }: { product: Product; label: string }) {
       >
         {product.aiScore}
       </div>
-    </div>
+    </Link>
   );
 }
 

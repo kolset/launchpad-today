@@ -17,15 +17,19 @@ export function WinnerBanner({ product }: { product: Product }) {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative">
         {/* Trophy label */}
-        <div className="flex items-center justify-center gap-2 mb-5">
+        <div className="flex items-center justify-center gap-3 mb-5">
           <div className="h-px flex-1 max-w-[120px] sm:max-w-[160px] bg-gradient-to-r from-transparent to-[var(--neon-yellow)]" />
-          <span
-            className="text-xs sm:text-sm uppercase tracking-[4px] neon-text-yellow"
-            style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
-          >
-            Product of the Day
-          </span>
-          <div className="h-px flex-1 max-w-[120px] sm:max-w-[160px] bg-gradient-to-l from-transparent to-[var(--neon-yellow)]" />
+          <div className="flex items-center gap-2">
+            <span className="text-lg sm:text-xl trophy-shimmer" aria-hidden="true">🏆</span>
+            <span
+              className="text-xs sm:text-sm uppercase tracking-[4px] neon-text-yellow"
+              style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-yellow)" }}
+            >
+              Product of the Day
+            </span>
+            <span className="text-lg sm:text-xl trophy-shimmer" aria-hidden="true">🏆</span>
+          </div>
+          <div className="h-px flex-1 max-w-[120px] sm:max-w-[160px] bg-gradient-to-r from-[var(--neon-yellow)] to-transparent" />
         </div>
 
         {/* Winner card — uses elevated winner-card class */}
@@ -114,7 +118,7 @@ export function WinnerBanner({ product }: { product: Product }) {
               {/* View full details link */}
               <a
                 href={`/product/${product.id}`}
-                className="inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-widest hover:opacity-80 transition-all duration-200 hover:gap-3"
+                className="neon-link inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-widest transition-all duration-200 hover:gap-3"
                 style={{ color: "var(--neon-pink)", fontFamily: "'Orbitron', sans-serif", minHeight: "44px" }}
               >
                 View Full Details &rarr;
