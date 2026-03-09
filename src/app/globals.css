@@ -409,3 +409,23 @@ body {
 .retro-textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-flame,
+  .animate-rocket-float,
+  .animate-launch,
+  .animate-pulse-glow,
+  .card-stagger,
+  .card-expand-enter,
+  .animate-bar-fill,
+  .modal-card-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .scanlines::after {
+    display: none;
+  }
+}

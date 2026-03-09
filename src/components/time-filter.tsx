@@ -17,11 +17,12 @@ export function TimeFilterBar({
   onChange: (f: TimeFilter) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 sm:gap-2 p-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
+    <div role="group" aria-label="Time period filter" className="flex items-center gap-1 sm:gap-2 p-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
       {FILTERS.map((f) => (
         <button
           key={f.value}
           onClick={() => onChange(f.value)}
+          aria-pressed={active === f.value}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs transition-all"
           style={
             active === f.value
@@ -41,7 +42,7 @@ export function TimeFilterBar({
                 }
           }
         >
-          <span className="text-sm hidden sm:inline">{f.icon}</span>
+          <span className="text-sm hidden sm:inline" aria-hidden="true">{f.icon}</span>
           <span className="text-[10px] sm:text-xs uppercase tracking-wider">{f.label}</span>
         </button>
       ))}

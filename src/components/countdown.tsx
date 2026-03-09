@@ -16,9 +16,12 @@ function getTimeUntilMidnight() {
 }
 
 export function Countdown() {
-  const [time, setTime] = useState(getTimeUntilMidnight());
+  const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setTime(getTimeUntilMidnight());
+    setMounted(true);
     const interval = setInterval(() => {
       setTime(getTimeUntilMidnight());
     }, 1000);
@@ -28,7 +31,7 @@ export function Countdown() {
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" aria-hidden="true" title={`Next ranking in ${pad(time.hours)}:${pad(time.minutes)}:${pad(time.seconds)}`} style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.4s ease-in" }}>
       <span className="text-[10px] uppercase tracking-widest text-white/25">
         Next ranking in
       </span>

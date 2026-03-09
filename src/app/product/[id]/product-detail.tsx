@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Product } from "@/lib/types";
 import { MOCK_PRODUCTS, PAST_WINNERS } from "@/lib/mock-data";
 import { RocketIcon } from "@/components/rocket-icon";
@@ -552,11 +553,15 @@ function ShareButton({ product, platform }: { product: Product; platform: "twitt
 }
 
 function CopyLinkButton({ productId }: { productId: string }) {
+  const [copied, setCopied] = useState(false);
+
   const handleCopy = () => {
     const url = `https://launchpad.today/product/${productId}`;
     navigator.clipboard.writeText(url).catch(() => {
       // Fallback: do nothing if clipboard API fails
     });
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -565,17 +570,23 @@ function CopyLinkButton({ productId }: { productId: string }) {
       className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-bold transition-all duration-200 hover:scale-105 cursor-pointer"
       style={{
         fontFamily: "'Orbitron', sans-serif",
-        background: "rgba(255, 255, 255, 0.06)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-        color: "rgba(255, 255, 255, 0.6)",
+        background: copied ? "rgba(57, 255, 20, 0.1)" : "rgba(255, 255, 255, 0.06)",
+        border: copied ? "1px solid var(--neon-green)" : "1px solid rgba(255, 255, 255, 0.1)",
+        color: copied ? "var(--neon-green)" : "rgba(255, 255, 255, 0.6)",
         minHeight: "44px",
       }}
     >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-      Copy
+      {copied ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+      )}
+      {copied ? "Copied!" : "Copy"}
     </button>
   );
 }

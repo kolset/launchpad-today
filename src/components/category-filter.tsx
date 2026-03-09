@@ -16,6 +16,8 @@ export function CategoryFilter({
   return (
     <div
       className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0"
+      role="group"
+      aria-label="Category filter"
       style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
     >
       <div className="flex items-center gap-2 w-max">
@@ -25,6 +27,7 @@ export function CategoryFilter({
             <button
               key={cat}
               onClick={() => onChange(cat)}
+              aria-pressed={isActive}
               className="shrink-0 rounded-sm uppercase tracking-wider transition-all whitespace-nowrap"
               style={{
                 scrollSnapAlign: "start",

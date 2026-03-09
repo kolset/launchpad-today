@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { CATEGORIES, Category } from "@/lib/types";
 import { RocketIcon } from "./rocket-icon";
 
@@ -26,6 +26,8 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
   const [submittedBy, setSubmittedBy] = useState("");
   const [launching, setLaunching] = useState(false);
   const [launched, setLaunched] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -38,6 +40,59 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  // Save trigger element and restore focus on close
+  useEffect(() => {
+    if (isOpen) {
+      previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    } else if (previouslyFocusedRef.current) {
+      previouslyFocusedRef.current.focus();
+      previouslyFocusedRef.current = null;
+    }
+  }, [isOpen]);
+
+  // Focus trap: keep Tab cycling within the modal
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    },
+    [onClose]
+  );
+
+  // Auto-focus the first input when modal opens
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      const timer = setTimeout(() => {
+        const firstInput = modalRef.current?.querySelector<HTMLElement>("input, button");
+        firstInput?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, launching]);
 
   if (!isOpen) return null;
 
@@ -66,8 +121,16 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
   const isValid = name && tagline && description && url && submittedBy;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="submit-modal-title"
+      onKeyDown={handleKeyDown}
+    >
       <div
+        ref={modalRef}
         className="retro-card rounded-2xl p-6 sm:p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto neon-border-cyan modal-card-enter"
         onClick={(e) => e.stopPropagation()}
       >
@@ -76,6 +139,7 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
           <div className="flex items-center gap-3">
             <RocketIcon size={32} flame={true} />
             <h2
+              id="submit-modal-title"
               className="text-lg sm:text-xl font-bold tracking-wider uppercase"
               style={{ fontFamily: "'Orbitron', sans-serif", color: "var(--neon-cyan)" }}
             >
@@ -84,6 +148,7 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close submit modal"
             className="text-white/30 hover:text-white/70 transition-colors text-xl"
           >
             &times;
@@ -117,10 +182,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
         {!launching && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-name" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 Product Name *
               </label>
               <input
+                id="submit-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -131,10 +197,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-tagline" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 Tagline *
               </label>
               <input
+                id="submit-tagline"
                 type="text"
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
@@ -145,10 +212,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-description" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 Description *
               </label>
               <textarea
+                id="submit-description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="What does it do? Who is it for? Why now?"
@@ -158,10 +226,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-url" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 URL *
               </label>
               <input
+                id="submit-url"
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
@@ -172,10 +241,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-category" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 Category *
               </label>
               <select
+                id="submit-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as Category)}
                 className="retro-input w-full px-4 py-2.5 rounded-lg text-sm"
@@ -189,10 +259,11 @@ export function SubmitModal({ isOpen, onClose, onSubmit }: SubmitModalProps) {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
+              <label htmlFor="submit-handle" className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">
                 Your Handle *
               </label>
               <input
+                id="submit-handle"
                 type="text"
                 value={submittedBy}
                 onChange={(e) => setSubmittedBy(e.target.value)}

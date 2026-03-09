@@ -10,7 +10,19 @@ interface HeaderProps {
 export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
   return (
     <header className="relative z-10 border-b border-white/[0.06]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      {/* Skip to main content link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-bold"
+        style={{
+          background: "var(--neon-cyan)",
+          color: "var(--deep-black)",
+          fontFamily: "'Orbitron', sans-serif",
+        }}
+      >
+        Skip to main content
+      </a>
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between" aria-label="Main navigation">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="animate-rocket-float">
@@ -95,7 +107,7 @@ export function Header({ onSubmitClick, onSearchClick }: HeaderProps) {
             <span className="hidden sm:inline">Submit Launch</span>
           </button>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

@@ -54,7 +54,18 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const router = useRouter();
+
+  // Save trigger element and restore focus on close
+  useEffect(() => {
+    if (isOpen) {
+      previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    } else if (previouslyFocusedRef.current) {
+      previouslyFocusedRef.current.focus();
+      previouslyFocusedRef.current = null;
+    }
+  }, [isOpen]);
 
   // Search logic
   const results = useMemo(() => {
@@ -184,6 +195,9 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     <div
       className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] sm:pt-[20vh] px-4 modal-overlay"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search launches"
     >
       <div
         className="retro-card rounded-2xl w-full max-w-xl overflow-hidden neon-border-cyan modal-card-enter"
@@ -220,7 +234,11 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <div className="flex-1 relative">
             <input
               ref={inputRef}
-              type="text"
+              type="search"
+              role="combobox"
+              aria-expanded={results.length > 0}
+              aria-autocomplete="list"
+              aria-label="Search launches"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search launches..."

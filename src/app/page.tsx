@@ -154,7 +154,7 @@ export default function Home() {
       </div>
 
       {/* Main content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+      <main id="main-content" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
         {/* Section header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
@@ -190,14 +190,15 @@ export default function Home() {
         </div>
 
         {/* Product list */}
-        <div className="space-y-4">
+        <div className="space-y-4" role="list" aria-label="Startup launch rankings">
           {rankedProducts.map((product, index) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              rank={timeFilter === "today" ? index + 2 : index + 1}
-              index={index}
-            />
+            <div key={product.id} role="listitem">
+              <ProductCard
+                product={product}
+                rank={timeFilter === "today" ? index + 2 : index + 1}
+                index={index}
+              />
+            </div>
           ))}
         </div>
 
@@ -281,17 +282,22 @@ export default function Home() {
                 >
                   Get the Daily Winner
                 </h3>
-                <p className="text-xs text-white/40 mb-5 max-w-md mx-auto">
+                <p id="email-desc" className="text-xs text-white/40 mb-5 max-w-md mx-auto">
                   Every morning, one startup gets crowned. Get the AI verdict delivered to your inbox.
                 </p>
                 <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <label htmlFor="email-subscribe" className="sr-only">
+                    Email address
+                  </label>
                   <input
+                    id="email-subscribe"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@startup.com"
                     className="retro-input flex-1 px-4 py-2.5 rounded-lg text-sm"
                     required
+                    aria-describedby="email-desc"
                   />
                   <button
                     type="submit"
